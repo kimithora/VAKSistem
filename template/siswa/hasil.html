@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Hasil Gaya Belajar | Sistem VAK</title>
+</head>
+
+<body>
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header>
+
+        <h1>Hasil Analisis Gaya Belajar</h1>
+
+        <p>
+            Sistem Analisis Gaya Belajar VAK
+        </p>
+
+        <nav>
+
+            <a href="{{ url_for('logout') }}">
+                Logout
+            </a>
+
+        </nav>
+
+        <hr>
+
+    </header>
+
+
+    <!-- =========================================
+         DATA SISWA
+    ========================================== -->
+
+    <main>
+
+        <section>
+
+            <h2>Data Siswa</h2>
+
+            <table border="1" cellpadding="8">
+
+                <tr>
+                    <th>Inisial</th>
+                    <td>{{ student["Inisial"] }}</td>
+                </tr>
+
+                <tr>
+                    <th>Kelas</th>
+                    <td>{{ student["Kelas"] }}</td>
+                </tr>
+
+                <tr>
+                    <th>Rombel</th>
+                    <td>{{ student["Rombel"] }}</td>
+                </tr>
+
+                <tr>
+                    <th>Sekolah</th>
+                    <td>{{ student["Sekolah"] }}</td>
+                </tr>
+
+                <tr>
+                    <th>Jurusan</th>
+                    <td>{{ student["Jurusan"] }}</td>
+                </tr>
+
+            </table>
+
+        </section>
+
+
+        <br>
+
+
+        <!-- =========================================
+             NILAI VAK
+        ========================================== -->
+
+        <section>
+
+            <h2>Hasil Gaya Belajar VAK</h2>
+
+            <table border="1" cellpadding="8">
+
+                <thead>
+
+                    <tr>
+                        <th>Gaya Belajar</th>
+                        <th>Nilai</th>
+                        <th>Proporsi</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Visual</td>
+
+                        <td>
+                            {{ student["Visual"] }}
+                        </td>
+
+                        <td>
+                            {{ student["Visual_prop"] }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Auditori</td>
+
+                        <td>
+                            {{ student["Auditori"] }}
+                        </td>
+
+                        <td>
+                            {{ student["Auditori_prop"] }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Kinestetik</td>
+
+                        <td>
+                            {{ student["Kinestetik"] }}
+                        </td>
+
+                        <td>
+                            {{ student["Kinestetik_prop"] }}
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <br>
+
+
+        <!-- =========================================
+             HASIL K-MEANS
+        ========================================== -->
+
+        <section>
+
+            <h2>Hasil K-Means</h2>
+
+            <table border="1" cellpadding="8">
+
+                <tr>
+                    <th>Cluster</th>
+
+                    <td>
+                        {{ student["KMeans_Cluster"] }}
+                    </td>
+                </tr>
+
+                <tr>
+                    <th>Gaya Belajar</th>
+
+                    <td>
+                        {{ student["KMeans_Gaya_Belajar"] }}
+                    </td>
+                </tr>
+
+            </table>
+
+        </section>
+
+
+        <br>
+
+
+        <!-- =========================================
+             HASIL FCM
+        ========================================== -->
+
+        <section>
+
+            <h2>Hasil Fuzzy C-Means</h2>
+
+            <table border="1" cellpadding="8">
+
+                <thead>
+
+                    <tr>
+                        <th>Komponen</th>
+                        <th>Nilai</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+                        <td>Membership Cluster 0</td>
+
+                        <td>
+                            {{ student["FCM_Membership_Cluster_0"] }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Membership Cluster 1</td>
+
+                        <td>
+                            {{ student["FCM_Membership_Cluster_1"] }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Membership Cluster 2</td>
+
+                        <td>
+                            {{ student["FCM_Membership_Cluster_2"] }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>FCM Cluster</td>
+
+                        <td>
+                            {{ student["FCM_Cluster"] }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Gaya Belajar FCM</td>
+
+                        <td>
+                            {{ student["FCM_Gaya_Belajar"] }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>Derajat Keanggotaan</td>
+
+                        <td>
+                            {{ student["FCM_Derajat_Keanggotaan"] }}
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <br>
+
+
+        <!-- =========================================
+             GAYA BELAJAR DOMINAN
+        ========================================== -->
+
+        <section>
+
+            <h2>Gaya Belajar Dominan</h2>
+
+            <p>
+                Berdasarkan hasil analisis,
+                gaya belajar yang diperoleh adalah:
+            </p>
+
+            <h3>
+                {{ student["FCM_Gaya_Belajar"] }}
+            </h3>
+
+        </section>
+
+
+        <br>
+
+
+        <!-- =========================================
+             REKOMENDASI JURUSAN
+        ========================================== -->
+
+        <section>
+
+            <h2>Rekomendasi Jurusan</h2>
+
+            <p>
+                Lihat rekomendasi jurusan yang sesuai
+                dengan gaya belajar Anda.
+            </p>
+
+
+            {% set gaya = student["FCM_Gaya_Belajar"]|lower %}
+
+
+            {% if "visual" in gaya %}
+
+                <a href="{{ url_for('rekomendasi_visual') }}">
+                    <button type="button">
+                        Lihat Rekomendasi Visual
+                    </button>
+                </a>
+
+
+            {% elif "auditori" in gaya %}
+
+                <a href="{{ url_for('rekomendasi_auditori') }}">
+                    <button type="button">
+                        Lihat Rekomendasi Auditori
+                    </button>
+                </a>
+
+
+            {% elif "kinestetik" in gaya %}
+
+                <a href="{{ url_for('rekomendasi_kinestetik') }}">
+                    <button type="button">
+                        Lihat Rekomendasi Kinestetik
+                    </button>
+                </a>
+
+
+            {% else %}
+
+                <p>
+                    Rekomendasi gaya belajar belum tersedia.
+                </p>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================================
+         FOOTER
+    ========================================== -->
+
+    <footer>
+
+        <hr>
+
+        <p>
+            Sistem Analisis Gaya Belajar VAK
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

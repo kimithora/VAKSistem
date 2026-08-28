@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Hasil Gaya Belajar | Sistem VAK</title>
+</head>
+
+<body>
+
+    <!-- ==================================================
+         HEADER
+    =================================================== -->
+
+    <header>
+
+        <h1>Hasil Analisis Gaya Belajar</h1>
+
+        <p>
+            Sistem Analisis Gaya Belajar VAK
+        </p>
+
+        <p>
+            Guru:
+            <strong>{{ session.get("inisial") }}</strong>
+        </p>
+
+        <nav>
+
+            <a href="{{ url_for('dashboard_guru') }}">
+                Kembali ke Dashboard
+            </a>
+
+            |
+
+            <a href="{{ url_for('logout') }}">
+                Logout
+            </a>
+
+        </nav>
+
+        <hr>
+
+    </header>
+
+
+    <!-- ==================================================
+         DATA IDENTITAS SISWA
+    =================================================== -->
+
+    <main>
+
+        <section>
+
+            <h2>Identitas Siswa</h2>
+
+            <table border="1">
+
+                <tr>
+                    <th>Inisial</th>
+                    <td>{{ student["Inisial"] }}</td>
+                </tr>
+
+                <tr>
+                    <th>Kelas</th>
+                    <td>{{ student["Kelas"] }}</td>
+                </tr>
+
+                <tr>
+                    <th>Rombel</th>
+                    <td>{{ student["Rombel"] }}</td>
+                </tr>
+
+                <tr>
+                    <th>Sekolah</th>
+                    <td>{{ student["Sekolah"] }}</td>
+                </tr>
+
+                <tr>
+                    <th>Jurusan</th>
+                    <td>{{ student["Jurusan"] }}</td>
+                </tr>
+
+            </table>
+
+        </section>
+
+
+        <!-- ==================================================
+             SKOR VAK
+        =================================================== -->
+
+        <section>
+
+            <h2>Skor Gaya Belajar</h2>
+
+            <table border="1">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Visual</th>
+                        <th>Auditori</th>
+                        <th>Kinestetik</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+                            {{ student["Visual"] }}
+                        </td>
+
+                        <td>
+                            {{ student["Auditori"] }}
+                        </td>
+
+                        <td>
+                            {{ student["Kinestetik"] }}
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <!-- ==================================================
+             PROPORSI VAK
+        =================================================== -->
+
+        <section>
+
+            <h2>Proporsi Gaya Belajar</h2>
+
+            <table border="1">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Visual Prop</th>
+                        <th>Auditori Prop</th>
+                        <th>Kinestetik Prop</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr>
+
+                        <td>
+                            {{ student["Visual_prop"] }}
+                        </td>
+
+                        <td>
+                            {{ student["Auditori_prop"] }}
+                        </td>
+
+                        <td>
+                            {{ student["Kinestetik_prop"] }}
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <!-- ==================================================
+             K-MEANS
+        =================================================== -->
+
+        <section>
+
+            <h2>Hasil K-Means</h2>
+
+            <table border="1">
+
+                <tr>
+
+                    <th>K-Means Cluster</th>
+
+                    <td>
+                        {{ student["KMeans_Cluster"] }}
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>K-Means Gaya Belajar</th>
+
+                    <td>
+                        {{ student["KMeans_Gaya_Belajar"] }}
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </section>
+
+
+        <!-- ==================================================
+             FCM
+        =================================================== -->
+
+        <section>
+
+            <h2>Hasil Fuzzy C-Means</h2>
+
+            <table border="1">
+
+                <tr>
+
+                    <th>Membership Cluster 0</th>
+
+                    <td>
+                        {{ student["FCM_Membership_Cluster_0"] }}
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Membership Cluster 1</th>
+
+                    <td>
+                        {{ student["FCM_Membership_Cluster_1"] }}
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Membership Cluster 2</th>
+
+                    <td>
+                        {{ student["FCM_Membership_Cluster_2"] }}
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>FCM Cluster</th>
+
+                    <td>
+                        {{ student["FCM_Cluster"] }}
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>FCM Gaya Belajar</th>
+
+                    <td>
+                        {{ student["FCM_Gaya_Belajar"] }}
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <th>Derajat Keanggotaan</th>
+
+                    <td>
+                        {{ student["FCM_Derajat_Keanggotaan"] }}
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </section>
+
+
+        <!-- ==================================================
+             REKOMENDASI JURUSAN
+        =================================================== -->
+
+        <section>
+
+            <h2>Rekomendasi Jurusan</h2>
+
+            <p>
+                Rekomendasi jurusan akan diberikan berdasarkan
+                gaya belajar siswa.
+            </p>
+
+            <!--
+                Bagian rekomendasi akan kita hubungkan
+                dengan tiga halaman:
+
+                rekomendasi_visual.html
+                rekomendasi_auditori.html
+                rekomendasi_kinestetik.html
+
+                pada tahap berikutnya.
+            -->
+
+        </section>
+
+    </main>
+
+
+    <!-- ==================================================
+         FOOTER
+    =================================================== -->
+
+    <footer>
+
+        <hr>
+
+        <p>
+            Sistem Analisis Gaya Belajar VAK
+        </p>
+
+        <p>
+            K-Means &amp; Fuzzy C-Means
+        </p>
+
+    </footer>
+
+</body>
+
+</html>

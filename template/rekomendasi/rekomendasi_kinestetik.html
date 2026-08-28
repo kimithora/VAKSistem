@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+
+```
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Rekomendasi Jurusan Kinestetik | Sistem VAK</title>
+
+<link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/rekomendasi.css') }}"
+>
+```
+
+</head>
+
+<body>
+
+```
+<!-- =====================================================
+     HEADER
+====================================================== -->
+
+<header>
+
+    <h1>Rekomendasi Jurusan</h1>
+
+    <p>
+        Gaya Belajar Kinestetik
+    </p>
+
+    <nav>
+
+        <a href="{{ url_for('tentang') }}">
+            Tentang Penelitian
+        </a>
+
+        {% if session.get("logged_in") %}
+
+            {% if session.get("role", "").lower() == "guru" %}
+
+                <a href="{{ url_for('dashboard_guru') }}">
+                    Dashboard Guru
+                </a>
+
+            {% elif session.get("role", "").lower() == "siswa" %}
+
+                <a href="{{ url_for('hasil_siswa') }}">
+                    Hasil Saya
+                </a>
+
+            {% endif %}
+
+            <a href="{{ url_for('logout') }}">
+                Keluar
+            </a>
+
+        {% else %}
+
+            <a href="{{ url_for('login') }}">
+                Login
+            </a>
+
+        {% endif %}
+
+    </nav>
+
+    <hr>
+
+</header>
+
+
+<!-- =====================================================
+     PENJELASAN
+====================================================== -->
+
+<main>
+
+    <section>
+
+        <h2>
+            Gaya Belajar Kinestetik
+        </h2>
+
+        <p>
+            Gaya belajar kinestetik merupakan kecenderungan belajar
+            melalui pengalaman langsung, praktik, aktivitas fisik,
+            eksperimen, simulasi, dan keterlibatan aktif dalam proses
+            pembelajaran.
+        </p>
+
+        <p>
+            Rekomendasi berikut disusun sebagai referensi awal untuk
+            membantu menghubungkan karakteristik gaya belajar kinestetik
+            dengan bidang studi yang memiliki banyak aktivitas praktik,
+            proyek, eksperimen, maupun interaksi langsung.
+        </p>
+
+        <p>
+            Rekomendasi jurusan bukan merupakan penentu pilihan karier.
+            Minat, kemampuan akademik, nilai, tujuan karier, kondisi
+            perguruan tinggi, serta faktor pribadi lainnya tetap perlu
+            dipertimbangkan.
+        </p>
+
+    </section>
+
+
+    <!-- =================================================
+         SAINS IPA
+    ================================================== -->
+
+    <section>
+
+        <h2>
+            Sains IPA
+        </h2>
+
+        <p>
+            Rekomendasi jurusan dalam bidang sains dan teknologi
+            yang memiliki karakteristik pembelajaran praktik,
+            eksperimen, laboratorium, maupun aktivitas lapangan.
+        </p>
+
+
+        <!-- 1. KEDOKTERAN -->
+
+        <article>
+
+            <h3>1. Kedokteran</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UI (Jakarta)</li>
+                <li>UGM (Yogyakarta)</li>
+                <li>Unair (Surabaya)</li>
+                <li>Unpad (Bandung)</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Anatomi, Fisiologi, Farmakologi, Patologi,
+                Bedah, Neurologi
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Dokter umum/spesialis, peneliti medis,
+                konsultan kesehatan
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Banyak praktik klinis, simulasi pasien, dan bedah
+                yang mengharuskan penggunaan tangan dan tubuh secara
+                aktif. Pembelajaran anatomi juga dapat diperkuat
+                melalui praktik langsung.
+            </p>
+
+        </article>
+
+
+        <!-- 2. KEDOKTERAN GIGI -->
+
+        <article>
+
+            <h3>2. Kedokteran Gigi</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UI</li>
+                <li>UGM</li>
+                <li>Unair</li>
+                <li>Unpad</li>
+                <li>USU (Medan)</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Anatomi Gigi, Bedah Mulut, Ortodonsia,
+                Periodonsia, Prostodonsia, Radiologi Gigi
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Dokter gigi umum/spesialis, peneliti, akademisi,
+                manajer klinik
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Pembelajaran sangat hands-on melalui praktik klinik,
+                penggunaan instrumen, dan tindakan langsung pada
+                pasien.
+            </p>
+
+        </article>
+
+
+        <!-- 3. KEPERAWATAN -->
+
+        <article>
+
+            <h3>3. Keperawatan</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UI</li>
+                <li>UGM</li>
+                <li>Unair</li>
+                <li>UIKA Bogor</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Keperawatan Medikal Bedah, Maternitas,
+                Komunitas, Manajemen Keperawatan
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Perawat spesialis, case manager,
+                dosen keperawatan, konsultan klinis
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Sejak awal pembelajaran terdapat praktik dasar,
+                simulasi tindakan medis, serta interaksi langsung
+                dengan pasien.
+            </p>
+
+        </article>
+
+
+        <!-- 4. FISIOTERAPI -->
+
+        <article>
+
+            <h3>4. Fisioterapi</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UI</li>
+                <li>UGM</li>
+                <li>Unair</li>
+                <li>Unpad</li>
+                <li>UB (Malang)</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Anatomi, Biomekanik, Terapi Latihan,
+                Manual Terapi, Elektroterapi, Fisioterapi Olahraga
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Fisioterapis klinik/RS, fisioterapis olahraga,
+                instruktur rehabilitasi, praktisi mandiri
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Pembelajaran melibatkan banyak aktivitas gerak,
+                manipulasi tubuh pasien, serta praktik terapi fisik
+                secara langsung.
+            </p>
+
+        </article>
+
+
+        <!-- 5. TEKNIK SIPIL -->
+
+        <article>
+
+            <h3>5. Teknik Sipil</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>ITB</li>
+                <li>UI</li>
+                <li>ITS (Surabaya)</li>
+                <li>UGM</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Mekanika Teknik, Struktur Bangunan, Teknik Pondasi,
+                Manajemen Konstruksi, Hidrologi
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Structural engineer, project manager,
+                konsultan konstruksi, drafter
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Banyak kegiatan survei lapangan, praktik konstruksi,
+                dan kunjungan proyek sehingga mahasiswa tidak hanya
+                belajar di dalam kelas.
+            </p>
+
+        </article>
+
+
+        <!-- 6. TEKNIK MESIN -->
+
+        <article>
+
+            <h3>6. Teknik Mesin</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>ITB</li>
+                <li>UI</li>
+                <li>ITS</li>
+                <li>UGM</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Termodinamika, Mekanika Fluida, Konstruksi Mesin,
+                CAD/CAM, Teknologi Manufaktur
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Mechanical engineer, maintenance engineer,
+                R&amp;D engineer, konsultan otomotif
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Banyak praktik workshop, perakitan mesin, simulasi
+                fisik, serta penggunaan alat-alat teknik.
+            </p>
+
+        </article>
+
+
+        <!-- 7. TEKNIK ELEKTRO -->
+
+        <article>
+
+            <h3>7. Teknik Elektro</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>ITB</li>
+                <li>UI</li>
+                <li>ITS</li>
+                <li>Telkom University</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Rangkaian Listrik, Elektronika, Sistem Kendali,
+                Telekomunikasi, Robotika
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Electrical engineer, IoT engineer,
+                power systems engineer, telecommunication engineer
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Praktik merakit rangkaian, robotika, dan eksperimen
+                elektronika memungkinkan konsep dipahami melalui
+                pengalaman langsung.
+            </p>
+
+        </article>
+
+
+        <!-- 8. TEKNIK KIMIA -->
+
+        <article>
+
+            <h3>8. Teknik Kimia</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>ITB</li>
+                <li>UI</li>
+                <li>ITS</li>
+                <li>UGM</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Termodinamika Kimia, Reaksi Teknik Kimia,
+                Proses Pemindahan, Hidrodinamika
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Process engineer, quality assurance,
+                R&amp;D kimia, HSE engineer
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Banyak praktik laboratorium, eksperimen reaksi,
+                dan pengoperasian peralatan yang memberikan
+                pengalaman belajar langsung.
+            </p>
+
+        </article>
+
+
+        <!-- 9. TEKNIK INDUSTRI -->
+
+        <article>
+
+            <h3>9. Teknik Industri</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>ITB</li>
+                <li>UI</li>
+                <li>ITS</li>
+                <li>UGM</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Ergonomi, Manajemen Operasi, Supply Chain,
+                Sistem Informasi Industri, Kualitas
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Industrial engineer, supply chain manager,
+                operations manager, business analyst
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Praktik ergonomi, simulasi manufaktur, serta
+                kunjungan industri memberikan pengalaman langsung
+                terhadap sistem produksi.
+            </p>
+
+        </article>
+
+
+        <!-- 10. TEKNIK INFORMATIKA -->
+
+        <article>
+
+            <h3>10. Teknik Informatika / Ilmu Komputer</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>ITB</li>
+                <li>UI</li>
+                <li>Binus</li>
+                <li>Telkom University</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Algoritma &amp; Struktur Data, Basis Data,
+                Jaringan Komputer, AI/ML, Cybersecurity
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Software engineer, data scientist,
+                cybersecurity analyst, AI engineer
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Praktik coding, hackathon, dan project-based learning
+                memungkinkan mahasiswa belajar dengan membangun
+                sistem secara langsung.
+            </p>
+
+        </article>
+
+
+        <!-- 11. ARSITEKTUR -->
+
+        <article>
+
+            <h3>11. Arsitektur</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>ITB</li>
+                <li>UI</li>
+                <li>UGM</li>
+                <li>ITS</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Sejarah Arsitektur, Teori Arsitektur,
+                Konstruksi Bangunan, Perancangan Kota, Estetika
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Arsitek, urban planner, interior designer,
+                konsultan properti
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Membuat maket, menggambar manual, workshop desain,
+                dan kunjungan lapangan memberikan pengalaman
+                pembelajaran melalui aktivitas fisik.
+            </p>
+
+        </article>
+
+
+        <!-- 12. BIOLOGI -->
+
+        <article>
+
+            <h3>12. Biologi</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UI</li>
+                <li>IPB</li>
+                <li>ITB</li>
+                <li>UGM</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Genetika, Mikrobiologi, Ekologi,
+                Biokimia, Bioteknologi
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Peneliti biologi, konservasionis,
+                bioteknolog, dosen
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Observasi lapangan, eksperimen laboratorium,
+                dan praktik mikroskopis membutuhkan keterampilan
+                tangan serta keaktifan fisik.
+            </p>
+
+        </article>
+
+
+        <!-- 13. FISIKA -->
+
+        <article>
+
+            <h3>13. Fisika</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>ITB</li>
+                <li>UI</li>
+                <li>UGM</li>
+                <li>ITS</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Mekanika Klasik, Elektromagnetisme,
+                Fisika Kuantum, Astrofisika, Instrumentasi
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Fisikawan, data scientist,
+                engineer instrumentasi, dosen
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Eksperimen laboratorium, pengukuran, dan praktik
+                instrumentasi membantu memahami konsep fisika
+                melalui pengalaman langsung.
+            </p>
+
+        </article>
+
+
+        <!-- 14. KIMIA -->
+
+        <article>
+
+            <h3>14. Kimia</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>ITB</li>
+                <li>UI</li>
+                <li>UGM</li>
+                <li>ITS</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Kimia Organik, Kimia Analitik,
+                Kimia Fisika, Biokimia, Material Science
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Analis kimia, R&amp;D scientist,
+                quality control, dosen
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Kegiatan laboratorium melibatkan eksperimen,
+                pengamatan reaksi, penggunaan instrumen,
+                dan keterampilan praktik secara langsung.
+            </p>
+
+        </article>
+
+
+        <!-- 15. TEKNOLOGI PANGAN -->
+
+        <article>
+
+            <h3>15. Teknologi Pangan</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>IPB / Institut Pertanian Bogor</li>
+                <li>UGM</li>
+                <li>Unpad</li>
+                <li>UB (Malang)</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Biokimia Pangan, Mikrobiologi Pangan,
+                Teknologi Pengolahan, Pengemasan, HACCP
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Food scientist, quality control,
+                R&amp;D produk makanan, konsultan pangan
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Eksperimen dan praktik laboratorium pengolahan
+                makanan memungkinkan mahasiswa memegang bahan,
+                melakukan pengujian, dan membuat produk secara
+                langsung.
+            </p>
+
+        </article>
+
+    </section>
+
+
+    <!-- =================================================
+         SAINS IPS
+    ================================================== -->
+
+    <section>
+
+        <h2>
+            Sains IPS
+        </h2>
+
+        <p>
+            Rekomendasi jurusan dalam bidang sosial, humaniora,
+            desain, komunikasi, bisnis, dan bidang terapan yang
+            memiliki aktivitas praktik, proyek, simulasi,
+            interaksi langsung, atau kegiatan lapangan.
+        </p>
+
+
+        <!-- 1. PSIKOLOGI -->
+
+        <article>
+
+            <h3>1. Psikologi</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UI</li>
+                <li>UPI (Bandung)</li>
+                <li>UM (Malang)</li>
+                <li>UGM</li>
+                <li>Unair</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Psikologi Klinis, Psikologi Sosial,
+                Psikologi Perkembangan, Psikometri, Konseling
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Psikolog klinis, konselor, HRD,
+                UX researcher, dosen
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Praktik konseling, eksperimen perilaku,
+                role play, dan simulasi terapi memberikan
+                pengalaman belajar melalui interaksi langsung.
+            </p>
+
+        </article>
+
+
+        <!-- 2. DKV -->
+
+        <article>
+
+            <h3>2. Desain Komunikasi Visual (DKV)</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>ITB</li>
+                <li>ITS</li>
+                <li>IKJ (Jakarta)</li>
+                <li>Binus</li>
+                <li>Telkom University</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Tipografi, Fotografi, Ilustrasi, Branding,
+                UI/UX Design, Motion Graphic
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Graphic designer, art director,
+                UI/UX designer, creative director,
+                content creator
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Pembelajaran banyak dilakukan melalui praktik
+                desain, fotografi, produksi karya, dan aktivitas
+                studio.
+            </p>
+
+        </article>
+
+
+        <!-- 3. DESAIN INTERIOR -->
+
+        <article>
+
+            <h3>3. Desain Interior</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>ITB</li>
+                <li>Binus</li>
+                <li>Telkom University</li>
+                <li>ISI Yogyakarta</li>
+                <li>ITS</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Teori Desain Interior, Material &amp; Teknik Konstruksi,
+                Lighting Design, Furniture Design, CAD Interior
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Desainer interior, konsultan properti,
+                visual merchandiser, set designer
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Membuat maket, menggambar manual, workshop material,
+                dan kunjungan proyek melibatkan aktivitas tangan
+                secara langsung.
+            </p>
+
+        </article>
+
+
+        <!-- 4. DESAIN PRODUK -->
+
+        <article>
+
+            <h3>4. Desain Produk</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>ITB</li>
+                <li>IKJ</li>
+                <li>ITS</li>
+                <li>Binus</li>
+                <li>Telkom University</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Sketching, Prototyping, Ergonomi,
+                Material Design, Design Thinking, CAD
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Product designer, industrial designer,
+                UX designer, entrepreneur, R&amp;D engineer
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Proses prototyping melibatkan pembuatan model fisik,
+                penggunaan workshop tools, dan pengujian produk
+                secara langsung.
+            </p>
+
+        </article>
+
+
+        <!-- 5. PENDIDIKAN JASMANI -->
+
+        <article>
+
+            <h3>5. Pendidikan Jasmani / Ilmu Keolahragaan</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UPI (Bandung)</li>
+                <li>UNJ (Jakarta)</li>
+                <li>UNY (Yogyakarta)</li>
+                <li>Unnes (Semarang)</li>
+                <li>UM (Malang)</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Biomekanika, Fisiologi Olahraga,
+                Psikologi Atlet, Manajemen Kebugaran,
+                Pendidikan Jasmani
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Guru olahraga, pelatih atlet,
+                fisioterapis, analis performa,
+                manajer fasilitas kebugaran
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Aktivitas pembelajaran melibatkan gerakan tubuh,
+                olahraga, praktik fisik, serta kegiatan di
+                laboratorium kebugaran dan pusat pelatihan.
+            </p>
+
+        </article>
+
+
+        <!-- 6. SENI PERTUNJUKAN -->
+
+        <article>
+
+            <h3>6. Seni Pertunjukan (Musik/Tari/Teater)</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>ISI Yogyakarta</li>
+                <li>IKJ (Jakarta)</li>
+                <li>ISI Padang Panjang</li>
+                <li>UNJ</li>
+                <li>UNNES</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Teori Musik, Komposisi, Koreografi,
+                Akting, Penciptaan Seni, Etnomusikologi
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Musisi, koreografer, aktor, sutradara,
+                dosen seni, peneliti seni
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Tubuh dapat menjadi medium pembelajaran melalui
+                latihan musik, tari, teater, performa, dan latihan
+                fisik secara langsung.
+            </p>
+
+        </article>
+
+
+        <!-- 7. PARIWISATA -->
+
+        <article>
+
+            <h3>7. Pariwisata / Perhotelan</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UPH (Tangerang)</li>
+                <li>STP Bandung</li>
+                <li>STP Trisakti</li>
+                <li>Universitas Ciputra</li>
+                <li>Politeknik Pariwisata Lombok</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Manajemen Perhotelan, Hospitality Service,
+                Tour Planning, Event Management, Ekonomi Kreatif
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Manajer hotel, tour planner, event organizer,
+                pemandu wisata, travel blogger
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Banyak kegiatan praktik hospitality, kunjungan
+                industri, serta pengalaman langsung melalui magang
+                di hotel maupun destinasi wisata.
+            </p>
+
+        </article>
+
+
+        <!-- 8. SENI KULINER -->
+
+        <article>
+
+            <h3>8. Seni Kuliner</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>Politeknik Pariwisata Lombok</li>
+                <li>IPB</li>
+                <li>UPH</li>
+                <li>STP Bandung</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Teknik Dasar Memasak, Pastry &amp; Bakery,
+                Food Styling, Manajemen Restoran, Food Safety
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Chef, food stylist, konsultan kuliner,
+                pengusaha restoran, food critic
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Pembelajaran dilakukan melalui praktik memasak,
+                eksperimen rasa, pengolahan bahan, serta aktivitas
+                menggunakan tangan secara langsung.
+            </p>
+
+        </article>
+
+
+        <!-- 9. HUKUM -->
+
+        <article>
+
+            <h3>9. Hukum</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UI</li>
+                <li>UGM</li>
+                <li>Unair</li>
+                <li>Unpad</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Hukum Konstitusi, Hukum Perdata,
+                Hukum Pidana, Hukum Bisnis,
+                Hukum Internasional
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Pengacara, hakim, jaksa, legal consultant,
+                notaris, mediator
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Simulasi pengadilan, moot court, role play kasus,
+                dan praktik penyusunan dokumen hukum memberikan
+                pengalaman belajar yang aktif.
+            </p>
+
+        </article>
+
+
+        <!-- 10. ILMU KOMUNIKASI -->
+
+        <article>
+
+            <h3>10. Ilmu Komunikasi / Jurnalistik</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UI</li>
+                <li>UGM</li>
+                <li>Unpad</li>
+                <li>Binus</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Teori Komunikasi, Jurnalistik,
+                Public Relations, Broadcasting, Media Digital
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Jurnalis, PR manager, content creator,
+                broadcaster, spokesperson
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Praktik shooting, wawancara lapangan,
+                produksi konten, serta aktivitas di lapangan
+                memberikan lingkungan belajar yang dinamis.
+            </p>
+
+        </article>
+
+
+        <!-- 11. HUBUNGAN INTERNASIONAL -->
+
+        <article>
+
+            <h3>11. Hubungan Internasional (HI)</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UI</li>
+                <li>UGM</li>
+                <li>Unpad</li>
+                <li>Parahyangan</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Diplomasi, Politik Luar Negeri,
+                Hukum Internasional, Ekonomi Politik Global,
+                Keamanan Internasional
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Diplomat, analis kebijakan,
+                international NGO worker,
+                konsultan geopolitik
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Simulasi diplomasi seperti MUN, debat internasional,
+                role play, dan presentasi aktif melibatkan interaksi
+                langsung.
+            </p>
+
+        </article>
+
+
+        <!-- 12. SOSIOLOGI -->
+
+        <article>
+
+            <h3>12. Sosiologi</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UI</li>
+                <li>UGM</li>
+                <li>Unpad</li>
+                <li>Airlangga</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Teori Sosiologi, Metode Penelitian Sosial,
+                Sosiologi Urban, Gender &amp; Masyarakat,
+                Kriminologi
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Peneliti sosial, konsultan CSR,
+                policy analyst, dosen
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Observasi lapangan, FGD, serta penelitian etnografi
+                memungkinkan mahasiswa berinteraksi langsung dengan
+                masyarakat dan lingkungan penelitian.
+            </p>
+
+        </article>
+
+
+        <!-- 13. ILMU PEMERINTAHAN -->
+
+        <article>
+
+            <h3>13. Ilmu Pemerintahan</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UI</li>
+                <li>UGM</li>
+                <li>Unpad</li>
+                <li>Airlangga</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Teori Politik, Kebijakan Publik,
+                Administrasi Negara, Desentralisasi,
+                Good Governance
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                ASN, analis kebijakan,
+                konsultan pemerintahan, dosen
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Simulasi pemerintahan, kunjungan instansi,
+                praktik administrasi, dan kegiatan lapangan
+                memberikan pengalaman belajar secara langsung.
+            </p>
+
+        </article>
+
+
+        <!-- 14. EKONOMI -->
+
+        <article>
+
+            <h3>14. Ekonomi</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UI</li>
+                <li>UGM</li>
+                <li>ITB</li>
+                <li>Unpad</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Mikroekonomi, Makroekonomi, Ekonometrika,
+                Ekonomi Pembangunan, Perbankan
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Analis ekonomi, banker,
+                konsultan keuangan, dosen, policy advisor
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Simulasi pasar, praktik analisis data,
+                studi kasus, dan kunjungan industri dapat
+                memberikan pengalaman belajar yang lebih aktif.
+            </p>
+
+        </article>
+
+
+        <!-- 15. MANAJEMEN -->
+
+        <article>
+
+            <h3>15. Manajemen</h3>
+
+            <h4>Rekomendasi Kampus</h4>
+
+            <ul>
+                <li>UI</li>
+                <li>ITB</li>
+                <li>UGM</li>
+                <li>Binus</li>
+            </ul>
+
+            <h4>Mata Kuliah Populer</h4>
+
+            <p>
+                Manajemen Pemasaran, SDM, Keuangan,
+                Operasi, Kewirausahaan
+            </p>
+
+            <h4>Prospek Karier</h4>
+
+            <p>
+                Manager, entrepreneur, marketing manager,
+                HRD, business consultant
+            </p>
+
+            <h4>Mengapa Cocok untuk Kinestetik?</h4>
+
+            <p>
+                Simulasi bisnis, praktik manajemen,
+                kunjungan industri, dan project-based learning
+                melibatkan aktivitas serta interaksi tim secara aktif.
+            </p>
+
+        </article>
+
+    </section>
+
+
+    <!-- =================================================
+         CATATAN
+    ================================================== -->
+
+    <section>
+
+        <h2>
+            Catatan
+        </h2>
+
+        <p>
+            Hasil gaya belajar digunakan sebagai salah satu
+            pertimbangan dalam memberikan rekomendasi. Pemilihan
+            jurusan tetap perlu disesuaikan dengan minat, kemampuan,
+            nilai akademik, tujuan pendidikan, prospek karier,
+            dan pertimbangan pribadi masing-masing siswa.
+        </p>
+
+    </section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+====================================================== -->
+
+<footer>
+
+    <hr>
+
+    <p>
+        Sistem Analisis Gaya Belajar VAK
+    </p>
+
+    <p>
+        Rekomendasi Jurusan Berdasarkan Gaya Belajar Kinestetik
+    </p>
+
+</footer>
+```
+
+</body>
+
+</html>

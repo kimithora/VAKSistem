@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Dashboard Guru | Sistem VAK</title>
+</head>
+
+<body>
+
+    <header>
+
+        <h1>Dashboard Guru</h1>
+
+        <p>
+            Sistem Analisis Gaya Belajar VAK
+        </p>
+
+        <p>
+            Selamat datang,
+            <strong>{{ session["inisial"] }}</strong>
+        </p>
+
+        <nav>
+
+            <a href="{{ url_for('tentang') }}">
+                Tentang Penelitian
+            </a>
+
+            |
+
+            <a href="{{ url_for('logout') }}">
+                Logout
+            </a>
+
+        </nav>
+
+        <hr>
+
+    </header>
+
+
+    <main>
+
+        <!-- ==========================================
+             RINGKASAN DATABASE
+        =========================================== -->
+
+        <section>
+
+            <h2>Ringkasan Database Siswa</h2>
+
+            <p>
+                Informasi berikut dihitung secara otomatis
+                berdasarkan data pada SMA1_DATABASE.csv.
+            </p>
+
+
+            <div>
+
+                <h3>Total Siswa</h3>
+
+                <p>
+                    <strong>
+                        {{ statistics.total_siswa }}
+                    </strong>
+                    siswa
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>Visual</h3>
+
+                <p>
+                    <strong>
+                        {{ statistics.visual }}
+                    </strong>
+                    siswa
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>Auditori</h3>
+
+                <p>
+                    <strong>
+                        {{ statistics.auditori }}
+                    </strong>
+                    siswa
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>Kinestetik</h3>
+
+                <p>
+                    <strong>
+                        {{ statistics.kinestetik }}
+                    </strong>
+                    siswa
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <hr>
+
+
+        <!-- ==========================================
+             INFORMASI DATA
+        =========================================== -->
+
+        <section>
+
+            <h2>Informasi Data</h2>
+
+            <ul>
+
+                <li>
+                    Jumlah Kelas:
+                    <strong>
+                        {{ statistics.total_kelas }}
+                    </strong>
+                </li>
+
+                <li>
+                    Jumlah Rombel:
+                    <strong>
+                        {{ statistics.total_rombel }}
+                    </strong>
+                </li>
+
+                <li>
+                    Jumlah Sekolah:
+                    <strong>
+                        {{ statistics.total_sekolah }}
+                    </strong>
+                </li>
+
+                <li>
+                    Jumlah Jurusan:
+                    <strong>
+                        {{ statistics.total_jurusan }}
+                    </strong>
+                </li>
+
+            </ul>
+
+        </section>
+
+
+        <hr>
+
+
+        <!-- ==========================================
+             PENCARIAN SISWA
+        =========================================== -->
+
+        <section>
+
+            <h2>Cari Siswa</h2>
+
+            <p>
+                Masukkan inisial siswa untuk mencari
+                data hasil analisis gaya belajar.
+            </p>
+
+
+            <form
+                action="{{ url_for('dashboard_guru') }}"
+                method="GET"
+            >
+
+                <label for="search">
+                    Inisial Siswa
+                </label>
+
+                <br>
+
+                <input
+                    type="text"
+                    id="search"
+                    name="search"
+                    value="{{ keyword }}"
+                    placeholder="Contoh: DRL"
+                    autocomplete="off"
+                >
+
+                <button type="submit">
+                    Cari
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <br>
+
+
+        <!-- ==========================================
+             HASIL PENCARIAN
+        =========================================== -->
+
+        {% if keyword %}
+
+            <section>
+
+                <h2>Hasil Pencarian</h2>
+
+                {% if students %}
+
+                    <p>
+                        Ditemukan
+                        <strong>
+                            {{ students|length }}
+                        </strong>
+                        siswa.
+                    </p>
+
+
+                    <ul>
+
+                        {% for student in students %}
+
+                            <li>
+
+                                <a
+                                    href="{{ url_for(
+                                        'hasil_siswa_guru',
+                                        inisial=student['Inisial']
+                                    ) }}"
+                                >
+
+                                    {{ student["Inisial"] }}
+
+                                </a>
+
+                            </li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                {% else %}
+
+                    <p>
+                        Siswa dengan inisial
+                        <strong>{{ keyword }}</strong>
+                        tidak ditemukan.
+                    </p>
+
+                {% endif %}
+
+            </section>
+
+        {% endif %}
+
+    </main>
+
+
+    <footer>
+
+        <hr>
+
+        <p>
+            Sistem Analisis Gaya Belajar VAK
+        </p>
+
+    </footer>
+
+</body>
+
+</html>
