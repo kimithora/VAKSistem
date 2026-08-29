@@ -10,13 +10,15 @@
     >
 
     <title>Login | Sistem VAK</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 </head>
 
 <body>
 
-    <!-- ==============================
-         HEADER
-    =============================== -->
+    <div class="login-background">
+        <img src="{{ url_for('static', filename='assets/background.jpg') }}" alt="Background">
+    </div>
 
     <header>
 
@@ -39,10 +41,6 @@
     </header>
 
 
-    <!-- ==============================
-         FORM LOGIN
-    =============================== -->
-
     <main>
 
         <section>
@@ -54,8 +52,6 @@
                 untuk mengakses sistem.
             </p>
 
-
-            <!-- Pesan error dari Flask -->
 
             {% if error %}
 
@@ -102,10 +98,6 @@
 
     </main>
 
-
-    <!-- ==============================
-         FOOTER
-    =============================== -->
 
     <footer>
 

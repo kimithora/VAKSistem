@@ -1,0 +1,1013 @@
+/* ============================================================
+   TENTANG.CSS — VAK Learning Style Research Page
+   Theme: White Luxury | Champagne Gold | Modern Academic
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   1. GOOGLE FONTS IMPORT
+   ---------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+/* ----------------------------------------------------------
+   2. CSS VARIABLES (Design Tokens)
+   ---------------------------------------------------------- */
+:root {
+  /* Background Palette */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #FAF9F7;
+  --bg-ivory: #F8F6F1;
+  --bg-pearl: #F5F3EE;
+
+  /* Text Colors */
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-muted: #8A8A8A;
+  --text-charcoal: #2D2D2D;
+
+  /* Gold & Accent Palette */
+  --gold-champagne: #C9A96E;
+  --gold-soft: #D4B896;
+  --gold-light: #E8D5B5;
+  --gold-pale: #F2E6D0;
+  --gold-shimmer: #F5ECD8;
+  --silver-pearl: #C8C4BC;
+  --silver-soft: #D9D5CD;
+
+  /* Gradients */
+  --gradient-gold: linear-gradient(135deg, var(--gold-champagne) 0%, var(--gold-soft) 50%, var(--gold-light) 100%);
+  --gradient-gold-hover: linear-gradient(135deg, var(--gold-soft) 0%, var(--gold-champagne) 50%, var(--gold-soft) 100%);
+  --gradient-ivory: linear-gradient(180deg, var(--bg-ivory) 0%, var(--bg-primary) 100%);
+  --gradient-pearl: linear-gradient(180deg, var(--bg-pearl) 0%, var(--bg-primary) 100%);
+  --gradient-title: linear-gradient(135deg, var(--text-primary) 0%, var(--gold-champagne) 100%);
+
+  /* Typography */
+  --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /* Spacing */
+  --section-gap: 3rem;
+  --card-padding: 2.5rem;
+  --content-max-width: 1140px;
+
+  /* Shadows */
+  --shadow-soft: 0 4px 24px rgba(26, 26, 26, 0.04);
+  --shadow-card: 0 8px 40px rgba(26, 26, 26, 0.06);
+  --shadow-card-hover: 0 16px 56px rgba(26, 26, 26, 0.1);
+  --shadow-gold-glow: 0 0 40px rgba(201, 169, 110, 0.15);
+  --shadow-button: 0 4px 16px rgba(201, 169, 110, 0.3);
+  --shadow-button-hover: 0 8px 28px rgba(201, 169, 110, 0.4);
+
+  /* Borders */
+  --border-gold-thin: 1px solid rgba(201, 169, 110, 0.2);
+  --border-gold-medium: 1px solid rgba(201, 169, 110, 0.35);
+  --border-gold-hover: 1px solid rgba(201, 169, 110, 0.55);
+  --border-radius-card: 24px;
+  --border-radius-button: 14px;
+
+  /* Transitions */
+  --transition-fast: 0.25s ease;
+  --transition-medium: 0.4s ease;
+  --transition-slow: 0.6s ease;
+}
+
+/* ----------------------------------------------------------
+   3. RESET & BASE STYLES
+   ---------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  background: var(--bg-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Luxury background with subtle warmth */
+  background-image:
+    radial-gradient(ellipse 80% 60% at 10% 20%, rgba(201, 169, 110, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 80%, rgba(201, 169, 110, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(248, 246, 241, 0.6) 0%, transparent 70%);
+  background-attachment: fixed;
+}
+
+/* ----------------------------------------------------------
+   4. DECORATIVE BACKGROUND ELEMENTS
+   ---------------------------------------------------------- */
+
+/* Soft glowing blob — top left */
+body::before {
+  content: '';
+  position: fixed;
+  top: -10%;
+  left: -5%;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatBlob 20s ease-in-out infinite alternate;
+}
+
+/* Soft glowing blob — bottom right */
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -10%;
+  right: -5%;
+  width: 45vw;
+  height: 45vw;
+  background: radial-gradient(circle, rgba(201, 169, 110, 0.05) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  animation: floatBlob 25s ease-in-out infinite alternate-reverse;
+}
+
+/* Subtle pearl glow — center */
+main::before {
+  content: '';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60vw;
+  height: 60vh;
+  background: radial-gradient(ellipse, rgba(245, 243, 238, 0.5) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ----------------------------------------------------------
+   5. GLITTER / SPARKLE PARTICLES (Pure CSS)
+   ---------------------------------------------------------- */
+
+/* Sparkle container using multiple pseudo-elements on html */
+html::before,
+html::after {
+  content: '✦';
+  position: fixed;
+  color: var(--gold-light);
+  font-size: 0.6rem;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  animation: sparkle 8s ease-in-out infinite;
+}
+
+html::before {
+  top: 15%;
+  left: 8%;
+  animation-delay: 0s;
+}
+
+html::after {
+  content: '⋆';
+  top: 35%;
+  right: 12%;
+  font-size: 0.5rem;
+  animation-delay: 3s;
+}
+
+/* Additional sparkles via header pseudo-elements */
+header::before {
+  content: '✧';
+  position: absolute;
+  top: 20%;
+  right: 15%;
+  color: var(--gold-pale);
+  font-size: 0.7rem;
+  pointer-events: none;
+  opacity: 0;
+  animation: sparkle 10s ease-in-out infinite;
+  animation-delay: 1.5s;
+}
+
+header::after {
+  content: '•';
+  position: absolute;
+  bottom: 25%;
+  left: 10%;
+  color: var(--gold-soft);
+  font-size: 0.4rem;
+  pointer-events: none;
+  opacity: 0;
+  animation: sparkle 12s ease-in-out infinite;
+  animation-delay: 5s;
+}
+
+/* Sparkle keyframes */
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0;
+    transform: scale(0.8) rotate(0deg);
+  }
+  25% {
+    opacity: 0.6;
+    transform: scale(1) rotate(45deg);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.2) rotate(90deg);
+  }
+  75% {
+    opacity: 0.8;
+    transform: scale(1) rotate(135deg);
+  }
+}
+
+/* Floating blob animation */
+@keyframes floatBlob {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(20px, -20px) scale(1.05);
+  }
+  100% {
+    transform: translate(-10px, 10px) scale(0.98);
+  }
+}
+
+/* ----------------------------------------------------------
+   6. HEADER STYLES
+   ---------------------------------------------------------- */
+header {
+  position: relative;
+  text-align: center;
+  padding: 5rem 1.5rem 3rem;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  animation: fadeInDown 1s var(--transition-slow) both;
+  z-index: 2;
+}
+
+/* Main title — focal point */
+header h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: var(--text-primary);
+  margin-bottom: 1rem;
+
+  /* Subtle champagne gold gradient on text */
+  background: var(--gradient-title);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtitle */
+header p {
+  font-family: var(--font-sans);
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 520px;
+  margin: 0 auto 2rem;
+  letter-spacing: 0.02em;
+}
+
+/* ----------------------------------------------------------
+   7. NAVIGATION STYLES
+   ---------------------------------------------------------- */
+header nav {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+header nav a {
+  position: relative;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  transition: color var(--transition-fast), transform var(--transition-fast);
+}
+
+/* Gold underline animation */
+header nav a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 1.5px;
+  background: var(--gradient-gold);
+  transition: width var(--transition-medium), left var(--transition-medium);
+  border-radius: 1px;
+}
+
+header nav a:hover {
+  color: var(--gold-champagne);
+  transform: translateY(-1px);
+}
+
+header nav a:hover::after {
+  width: 80%;
+  left: 10%;
+}
+
+/* Separator pipe */
+header nav::before {
+  content: '|';
+  color: var(--gold-light);
+  font-weight: 300;
+  font-size: 0.85rem;
+  margin: 0 0.3rem;
+  opacity: 0.6;
+}
+
+/* ----------------------------------------------------------
+   8. DECORATIVE HR (Divider)
+   ---------------------------------------------------------- */
+hr {
+  border: none;
+  height: 1px;
+  max-width: 400px;
+  margin: 0 auto;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(201, 169, 110, 0.3) 20%,
+    rgba(201, 169, 110, 0.6) 50%,
+    rgba(201, 169, 110, 0.3) 80%,
+    transparent 100%
+  );
+  position: relative;
+}
+
+/* Center ornament on HR */
+hr::after {
+  content: '✦';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--gold-soft);
+  font-size: 0.7rem;
+  background: var(--bg-primary);
+  padding: 0 0.8rem;
+  letter-spacing: 0;
+}
+
+/* Footer HR specific */
+footer hr {
+  max-width: 300px;
+  margin-bottom: 1.5rem;
+  opacity: 0.5;
+}
+
+footer hr::after {
+  background: var(--bg-secondary);
+}
+
+/* ----------------------------------------------------------
+   9. MAIN CONTENT AREA
+   ---------------------------------------------------------- */
+main {
+  position: relative;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--section-gap);
+  z-index: 2;
+}
+
+/* ----------------------------------------------------------
+   10. SECTION CARDS (Premium Floating Cards)
+   ---------------------------------------------------------- */
+main section {
+  position: relative;
+  background: var(--bg-primary);
+  border: var(--border-gold-thin);
+  border-radius: var(--border-radius-card);
+  padding: var(--card-padding);
+  box-shadow: var(--shadow-card);
+  transition: transform var(--transition-medium),
+              box-shadow var(--transition-medium),
+              border-color var(--transition-medium);
+  animation: fadeInUp 0.8s var(--transition-slow) both;
+}
+
+/* Staggered animation delays for sections */
+main section:nth-child(1) { animation-delay: 0.1s; }
+main section:nth-child(2) { animation-delay: 0.2s; }
+main section:nth-child(3) { animation-delay: 0.3s; }
+main section:nth-child(4) { animation-delay: 0.4s; }
+main section:nth-child(5) { animation-delay: 0.5s; }
+main section:nth-child(6) { animation-delay: 0.6s; }
+main section:nth-child(7) { animation-delay: 0.7s; }
+
+/* Section hover — floating luxury card */
+main section:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-card-hover), var(--shadow-gold-glow);
+  border-color: rgba(201, 169, 110, 0.4);
+}
+
+/* Subtle decorative corner accent on sections */
+main section::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 2rem;
+  width: 4rem;
+  height: 2px;
+  background: var(--gradient-gold);
+  border-radius: 0 0 2px 2px;
+  opacity: 0.5;
+  transition: opacity var(--transition-medium), width var(--transition-medium);
+}
+
+main section:hover::before {
+  opacity: 0.8;
+  width: 6rem;
+}
+
+/* ----------------------------------------------------------
+   11. HEADING STYLES
+   ---------------------------------------------------------- */
+
+/* H2 — Primary section headings */
+main section h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  font-weight: 600;
+  color: var(--text-charcoal);
+  line-height: 1.3;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.01em;
+  position: relative;
+  padding-bottom: 0.8rem;
+}
+
+/* Decorative gold line under H2 */
+main section h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 3rem;
+  height: 2px;
+  background: var(--gradient-gold);
+  border-radius: 1px;
+  transition: width var(--transition-medium);
+}
+
+main section:hover h2::after {
+  width: 4.5rem;
+}
+
+/* H3 — Subsection headings (VAK, etc.) */
+main section h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+  font-weight: 600;
+  color: var(--text-charcoal);
+  line-height: 1.4;
+  margin-top: 1.5rem;
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.01em;
+  position: relative;
+  padding-left: 1.2rem;
+}
+
+/* Gold accent dot before H3 */
+main section h3::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: var(--gold-champagne);
+  border-radius: 50%;
+  opacity: 0.7;
+}
+
+/* VAK-specific color accents for H3 */
+/* Visual — soft champagne */
+main section:nth-child(3) h3:nth-of-type(1)::before {
+  background: var(--gold-champagne);
+  box-shadow: 0 0 8px rgba(201, 169, 110, 0.3);
+}
+
+/* Auditori — soft pearl/silver */
+main section:nth-child(3) h3:nth-of-type(2)::before {
+  background: var(--silver-pearl);
+  box-shadow: 0 0 8px rgba(200, 196, 188, 0.3);
+}
+
+/* Kinestetik — soft warm gold */
+main section:nth-child(3) h3:nth-of-type(3)::before {
+  background: var(--gold-soft);
+  box-shadow: 0 0 8px rgba(212, 184, 150, 0.3);
+}
+
+/* ----------------------------------------------------------
+   12. PARAGRAPH STYLES
+   ---------------------------------------------------------- */
+main section p {
+  font-family: var(--font-sans);
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.85;
+  color: var(--text-secondary);
+  max-width: 75ch;
+  margin-bottom: 1rem;
+}
+
+main section p:last-child {
+  margin-bottom: 0;
+}
+
+/* ----------------------------------------------------------
+   13. ORDERED LIST — Custom Premium Numbering
+   ---------------------------------------------------------- */
+main section ol {
+  list-style: none;
+  counter-reset: research-step;
+  padding: 0;
+  margin: 1.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+main section ol li {
+  position: relative;
+  counter-increment: research-step;
+  padding: 1rem 1.2rem 1rem 4rem;
+  background: var(--bg-secondary);
+  border: var(--border-gold-thin);
+  border-radius: 14px;
+  font-family: var(--font-sans);
+  font-size: clamp(0.9rem, 1.6vw, 1rem);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  transition: transform var(--transition-fast),
+              background var(--transition-fast),
+              box-shadow var(--transition-fast),
+              border-color var(--transition-fast);
+}
+
+/* Custom number circle */
+main section ol li::before {
+  content: counter(research-step, decimal-leading-zero);
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.2rem;
+  height: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--gold-champagne);
+  background: var(--bg-primary);
+  border: 1.5px solid var(--gold-light);
+  border-radius: 50%;
+  transition: color var(--transition-fast),
+              background var(--transition-fast),
+              border-color var(--transition-fast),
+              box-shadow var(--transition-fast);
+}
+
+/* List item hover */
+main section ol li:hover {
+  transform: translateX(4px);
+  background: var(--bg-ivory);
+  border-color: rgba(201, 169, 110, 0.35);
+  box-shadow: var(--shadow-soft);
+}
+
+main section ol li:hover::before {
+  color: var(--bg-primary);
+  background: var(--gold-champagne);
+  border-color: var(--gold-champagne);
+  box-shadow: 0 0 12px rgba(201, 169, 110, 0.25);
+}
+
+/* ----------------------------------------------------------
+   14. BUTTON — "Masuk ke Sistem" (Luxury CTA)
+   ---------------------------------------------------------- */
+main section a {
+  display: inline-block;
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+
+main section button {
+  position: relative;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background: var(--gradient-gold);
+  border: none;
+  border-radius: var(--border-radius-button);
+  padding: 1rem 2.5rem;
+  cursor: pointer;
+  box-shadow: var(--shadow-button);
+  transition: transform var(--transition-fast),
+              box-shadow var(--transition-fast),
+              background var(--transition-fast);
+  overflow: hidden;
+}
+
+/* Subtle shimmer overlay on button */
+main section button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 100%
+  );
+  transition: left 0.6s ease;
+}
+
+/* Button hover */
+main section button:hover {
+  transform: translateY(-3px);
+  background: var(--gradient-gold-hover);
+  box-shadow: var(--shadow-button-hover);
+}
+
+main section button:hover::before {
+  left: 100%;
+}
+
+/* Button active/pressed */
+main section button:active {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-button);
+}
+
+/* ----------------------------------------------------------
+   15. FOOTER STYLES
+   ---------------------------------------------------------- */
+footer {
+  position: relative;
+  text-align: center;
+  padding: 2.5rem 1.5rem 3rem;
+  background: var(--bg-secondary);
+  border-top: var(--border-gold-thin);
+  z-index: 2;
+}
+
+/* Decorative sparkle in footer */
+footer::before {
+  content: '✦';
+  position: absolute;
+  top: -0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--gold-light);
+  font-size: 0.6rem;
+  background: var(--bg-secondary);
+  padding: 0 0.6rem;
+  opacity: 0.7;
+}
+
+footer p {
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  line-height: 1.8;
+}
+
+footer p:first-of-type {
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 0.2rem;
+}
+
+/* ----------------------------------------------------------
+   16. KEYFRAME ANIMATIONS
+   ---------------------------------------------------------- */
+
+/* Fade in from top (Header) */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in from bottom (Sections) */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ----------------------------------------------------------
+   17. REDUCED MOTION SUPPORT
+   ---------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  body::before,
+  body::after {
+    animation: none;
+  }
+
+  html::before,
+  html::after,
+  header::before,
+  header::after {
+    animation: none;
+    opacity: 0.3;
+  }
+}
+
+/* ----------------------------------------------------------
+   18. RESPONSIVE DESIGN — TABLET (max-width: 768px)
+   ---------------------------------------------------------- */
+@media (max-width: 768px) {
+  :root {
+    --section-gap: 2.2rem;
+    --card-padding: 1.8rem;
+  }
+
+  header {
+    padding: 3.5rem 1.2rem 2.2rem;
+  }
+
+  header h1 {
+    letter-spacing: 0.01em;
+  }
+
+  header nav a {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    padding: 0.3rem 0.6rem;
+  }
+
+  main {
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  main section {
+    border-radius: 20px;
+    padding: 1.8rem;
+  }
+
+  main section h2 {
+    padding-bottom: 0.6rem;
+    margin-bottom: 1.2rem;
+  }
+
+  main section h3 {
+    margin-top: 1.2rem;
+  }
+
+  main section ol li {
+    padding: 0.85rem 1rem 0.85rem 3.6rem;
+  }
+
+  main section ol li::before {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.8rem;
+    left: 0.85rem;
+  }
+
+  main section button {
+    padding: 0.9rem 2rem;
+    font-size: 0.9rem;
+  }
+
+  footer {
+    padding: 2rem 1rem 2.5rem;
+  }
+}
+
+/* ----------------------------------------------------------
+   19. RESPONSIVE DESIGN — MOBILE (max-width: 480px)
+   ---------------------------------------------------------- */
+@media (max-width: 480px) {
+  :root {
+    --section-gap: 1.8rem;
+    --card-padding: 1.4rem;
+  }
+
+  html {
+    font-size: 15px;
+  }
+
+  header {
+    padding: 2.5rem 1rem 1.8rem;
+  }
+
+  header nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.3rem;
+  }
+
+  header nav a {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    padding: 0.25rem 0.5rem;
+  }
+
+  header nav::before {
+    display: none;
+  }
+
+  /* Show separator as text node instead */
+  header nav a:first-child::after {
+    content: '|';
+    margin-left: 0.6rem;
+    color: var(--gold-light);
+    opacity: 0.5;
+  }
+
+  main {
+    padding: 1rem 0.75rem 2.5rem;
+  }
+
+  main section {
+    border-radius: 18px;
+    padding: 1.4rem;
+    border-width: 0.8px;
+  }
+
+  main section h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+
+  main section h2::after {
+    width: 2.5rem;
+  }
+
+  main section h3 {
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    padding-left: 1rem;
+  }
+
+  main section h3::before {
+    width: 5px;
+    height: 5px;
+  }
+
+  main section p {
+    font-size: 0.92rem;
+    line-height: 1.75;
+  }
+
+  main section ol {
+    gap: 0.7rem;
+  }
+
+  main section ol li {
+    padding: 0.75rem 0.9rem 0.75rem 3.2rem;
+    font-size: 0.9rem;
+    border-radius: 12px;
+  }
+
+  main section ol li::before {
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: 0.75rem;
+    left: 0.7rem;
+  }
+
+  main section button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 0.85rem;
+    border-radius: 12px;
+  }
+
+  hr {
+    max-width: 280px;
+  }
+
+  footer {
+    padding: 1.8rem 1rem 2rem;
+  }
+
+  footer p {
+    font-size: 0.75rem;
+  }
+
+  /* Reduce decorative elements on small screens */
+  body::before,
+  body::after {
+    opacity: 0.5;
+  }
+
+  html::before,
+  html::after,
+  header::before,
+  header::after {
+    display: none;
+  }
+}
+
+/* ----------------------------------------------------------
+   20. ACCESSIBILITY — FOCUS STATES
+   ---------------------------------------------------------- */
+header nav a:focus-visible,
+main section a:focus-visible,
+main section button:focus-visible {
+  outline: 2px solid var(--gold-champagne);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+main section button:focus-visible {
+  border-radius: var(--border-radius-button);
+}
+
+/* ----------------------------------------------------------
+   21. PRINT STYLES
+   ---------------------------------------------------------- */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  body::before,
+  body::after,
+  main::before,
+  html::before,
+  html::after,
+  header::before,
+  header::after {
+    display: none !important;
+  }
+
+  main section {
+    box-shadow: none !important;
+    border: 1px solid #ccc !important;
+    break-inside: avoid;
+  }
+
+  main section button {
+    background: #ddd !important;
+    color: black !important;
+    box-shadow: none !important;
+  }
+}

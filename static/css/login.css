@@ -1,0 +1,259 @@
+/* ============================================
+   LOGIN.CSS — Halaman Login VAK
+   Gen Z Edition | Interactive | Pure CSS
+   ============================================ */
+
+/* ── Background Image Handling ── */
+.login-background {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  overflow: hidden;
+}
+
+.login-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.15;
+  filter: blur(2px) saturate(1.5);
+  transform: scale(1.1);
+  animation: slow-zoom 20s ease-in-out infinite alternate;
+}
+
+@keyframes slow-zoom {
+  from { transform: scale(1.1); }
+  to { transform: scale(1.2); }
+}
+
+/* ── Login Layout ── */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-md);
+  perspective: 1000px;
+}
+
+/* ── Login Card ── */
+section {
+  width: 100%;
+  max-width: 440px;
+  padding: var(--space-lg);
+  border-radius: var(--radius-lg);
+  background: var(--bg-glass);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--border-glass);
+  box-shadow: var(--shadow-card), 0 0 60px rgba(184, 41, 221, 0.1);
+  animation: slide-up 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both,
+             border-glow 4s ease infinite;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative corner accents */
+section::before,
+section::after {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  filter: blur(40px);
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+section::before {
+  top: -20px;
+  right: -20px;
+  background: var(--accent-purple);
+  animation: float 6s ease-in-out infinite;
+}
+
+section::after {
+  bottom: -20px;
+  left: -20px;
+  background: var(--accent-cyan);
+  animation: float 7s ease-in-out infinite reverse;
+}
+
+/* ── Section Header ── */
+section h2 {
+  text-align: center;
+  margin-bottom: var(--space-xs);
+  position: relative;
+  z-index: 1;
+}
+
+section h2::after {
+  content: '🔐';
+  display: block;
+  font-size: 2.5rem;
+  margin: var(--space-sm) 0;
+  filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.5));
+  animation: float 3s ease-in-out infinite;
+}
+
+section > p {
+  text-align: center;
+  margin: 0 auto var(--space-md);
+  font-size: 0.9375rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Error Message in Login ── */
+section .error-message,
+section p strong {
+  display: block;
+  padding: var(--space-sm);
+  margin-bottom: var(--space-md);
+  background: rgba(255, 42, 109, 0.08);
+  border: 1px solid rgba(255, 42, 109, 0.25);
+  border-radius: var(--radius-md);
+  color: #ff6b9d;
+  font-size: 0.875rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  animation: slide-up 0.4s ease, pulse-glow 2.5s ease infinite;
+}
+
+/* ── Form Styling ── */
+form {
+  position: relative;
+  z-index: 1;
+}
+
+form div {
+  margin-bottom: var(--space-sm);
+}
+
+/* Token Input with Icon vibe */
+input#token {
+  padding-left: 3rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2300f5ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 1rem center;
+  background-size: 20px;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
+}
+
+input#token:focus {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ff2a6d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'%3E%3C/path%3E%3C/svg%3E");
+}
+
+/* ── Submit Button ── */
+form button[type="submit"] {
+  width: 100%;
+  margin-top: var(--space-sm);
+  padding: 1rem;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  position: relative;
+}
+
+/* Arrow icon on button */
+form button[type="submit"]::after {
+  content: '→';
+  margin-left: 0.5rem;
+  transition: transform var(--transition-base);
+}
+
+form button[type="submit"]:hover::after {
+  transform: translateX(4px);
+}
+
+/* ── Floating Particles (CSS Only) ── */
+main::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: var(--accent-cyan);
+  border-radius: 50%;
+  top: 20%;
+  left: 10%;
+  box-shadow: 
+    20px 40px 0 var(--accent-purple),
+    60px -20px 0 var(--accent-pink),
+    -30px 60px 0 var(--accent-lime),
+    80px 80px 0 var(--accent-orange),
+    -50px -30px 0 var(--accent-cyan);
+  animation: particles-float 8s ease-in-out infinite;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+@keyframes particles-float {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(10px, -15px); }
+  50% { transform: translate(-5px, 10px); }
+  75% { transform: translate(15px, 5px); }
+}
+
+/* ── VAK Badge (Visual Auditory Kinesthetic) ── */
+section::before {
+  content: 'V • A • K';
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.03);
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-glass);
+  z-index: 2;
+}
+
+/* Override the previous ::before for decorative orb */
+section {
+  position: relative;
+}
+
+/* We need to adjust since ::before is used for badge. 
+   Let's use extra decorative elements via form positioning instead. */
+
+/* ── Responsive Login ── */
+@media (max-width: 480px) {
+  section {
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    margin: var(--space-sm);
+  }
+
+  section h2::after {
+    font-size: 2rem;
+  }
+
+  input#token {
+    padding-left: 2.5rem;
+    background-position: 0.75rem center;
+  }
+}
+
+/* ── Reduced Motion ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .login-background img {
+    animation: none;
+  }
+}
