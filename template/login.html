@@ -16,6 +16,8 @@
 
 <body>
 
+    <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
     <div class="login-background">
         <img src="{{ url_for('static', filename='assets/background.jpg') }}" alt="Background">
     </div>
@@ -76,13 +78,22 @@
                     <br>
 
                     <input
-                        type="text"
+                        type="password"
                         id="token"
                         name="token"
                         placeholder="Masukkan token"
                         required
                         autocomplete="off"
                     >
+
+                    <button
+                        type="button"
+                        id="toggle-token"
+                        class="toggle-token"
+                        aria-label="Tampilkan token"
+                    >
+                        Tampilkan
+                    </button>
 
                 </div>
 

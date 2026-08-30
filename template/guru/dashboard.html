@@ -52,10 +52,137 @@
     <main>
 
         <!-- ==========================================
+             PENCARIAN SISWA
+        =========================================== -->
+
+        <section class="search-section">
+
+            <h2>Cari Siswa</h2>
+
+            <p>
+                Masukkan inisial siswa untuk mencari
+                data hasil analisis gaya belajar.
+            </p>
+
+            <form
+                action="{{ url_for('dashboard_guru') }}"
+                method="GET"
+            >
+
+                <label for="search">
+                    Inisial Siswa
+                </label>
+
+                <input
+                    type="text"
+                    id="search"
+                    name="search"
+                    value="{{ keyword }}"
+                    placeholder="Contoh: DRL"
+                    autocomplete="off"
+                >
+
+                <button type="submit">
+                    Cari
+                </button>
+
+            </form>
+
+            {% if keyword %}
+
+                <div class="search-results">
+
+                    <h3>Hasil Pencarian</h3>
+
+                    {% if students %}
+
+                        <p>
+                            Ditemukan
+                            <strong>
+                                {{ students|length }}
+                            </strong>
+                            siswa.
+                        </p>
+
+                        <ul>
+
+                            {% for student in students %}
+
+                                <li>
+
+                                    <div class="student-result">
+
+                                        <a
+                                            href="{{ url_for(
+                                                'hasil_siswa_guru',
+                                                inisial=student['Inisial']
+                                            ) }}"
+                                            class="student-link"
+                                        >
+
+                                            <span class="student-name">
+                                                {{ student["Inisial"] }}
+                                            </span>
+
+                                            <span class="student-meta">
+                                                Kelas {{ student.get('Kelas', '-') }}
+                                                / Rombel {{ student.get('Rombel', '-') }}
+                                            </span>
+
+                                        </a>
+
+                                        {% set gaya = (student.get('FCM_Gaya_Belajar') or student.get('KMeans_Gaya_Belajar') or '') | lower %}
+
+                                        {% if 'visual' in gaya %}
+
+                                            <a href="{{ url_for('rekomendasi_visual') }}" class="recommend-btn">
+                                                Rekomendasi Visual
+                                            </a>
+
+                                        {% elif 'auditori' in gaya %}
+
+                                            <a href="{{ url_for('rekomendasi_auditori') }}" class="recommend-btn">
+                                                Rekomendasi Auditori
+                                            </a>
+
+                                        {% elif 'kinestetik' in gaya %}
+
+                                            <a href="{{ url_for('rekomendasi_kinestetik') }}" class="recommend-btn">
+                                                Rekomendasi Kinestetik
+                                            </a>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </li>
+
+                            {% endfor %}
+
+                        </ul>
+
+                    {% else %}
+
+                        <p class="not-found">
+                            Siswa dengan inisial
+                            <strong>{{ keyword }}</strong>
+                            tidak ditemukan.
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- ==========================================
              RINGKASAN DATABASE
         =========================================== -->
 
-        <section>
+        <section class="summary-section">
 
             <h2>Ringkasan Database Siswa</h2>
 
@@ -130,7 +257,7 @@
              INFORMASI DATA
         =========================================== -->
 
-        <section>
+        <section class="info-section">
 
             <h2>Informasi Data</h2>
 
@@ -172,109 +299,6 @@
         <hr>
 
 
-        <!-- ==========================================
-             PENCARIAN SISWA
-        =========================================== -->
-
-        <section>
-
-            <h2>Cari Siswa</h2>
-
-            <p>
-                Masukkan inisial siswa untuk mencari
-                data hasil analisis gaya belajar.
-            </p>
-
-
-            <form
-                action="{{ url_for('dashboard_guru') }}"
-                method="GET"
-            >
-
-                <label for="search">
-                    Inisial Siswa
-                </label>
-
-                <br>
-
-                <input
-                    type="text"
-                    id="search"
-                    name="search"
-                    value="{{ keyword }}"
-                    placeholder="Contoh: DRL"
-                    autocomplete="off"
-                >
-
-                <button type="submit">
-                    Cari
-                </button>
-
-            </form>
-
-        </section>
-
-
-        <br>
-
-
-        <!-- ==========================================
-             HASIL PENCARIAN
-        =========================================== -->
-
-        {% if keyword %}
-
-            <section>
-
-                <h2>Hasil Pencarian</h2>
-
-                {% if students %}
-
-                    <p>
-                        Ditemukan
-                        <strong>
-                            {{ students|length }}
-                        </strong>
-                        siswa.
-                    </p>
-
-
-                    <ul>
-
-                        {% for student in students %}
-
-                            <li>
-
-                                <a
-                                    href="{{ url_for(
-                                        'hasil_siswa_guru',
-                                        inisial=student['Inisial']
-                                    ) }}"
-                                >
-
-                                    {{ student["Inisial"] }}
-
-                                </a>
-
-                            </li>
-
-                        {% endfor %}
-
-                    </ul>
-
-                {% else %}
-
-                    <p>
-                        Siswa dengan inisial
-                        <strong>{{ keyword }}</strong>
-                        tidak ditemukan.
-                    </p>
-
-                {% endif %}
-
-            </section>
-
-        {% endif %}
 
     </main>
 
@@ -288,6 +312,7 @@
         </p>
 
     </footer>
+    <script src="{{ url_for('static', filename='js/guru.js') }}"></script>
 
 </body>
 

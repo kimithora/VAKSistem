@@ -3,16 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hasil Gaya Belajar | Sistem VAK</title>
-
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/hasil.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
+<base target="_blank">
 </head>
 
 <body>
@@ -20,332 +15,259 @@
     <!-- ==================================================
          HEADER
     =================================================== -->
-
     <header>
-
+        <div class="header-meta">// ANALYSIS RESULT</div>
         <h1>Hasil Analisis Gaya Belajar</h1>
-
-        <p>
-            Sistem Analisis Gaya Belajar VAK
-        </p>
-
-        <p>
-            Guru:
-            <strong>{{ session.get("inisial") }}</strong>
-        </p>
-
+        <p class="header-desc">Sistem Analisis Gaya Belajar VAK</p>
+        <p class="header-guru">Guru: <strong>{{ session.get("inisial") }}</strong></p>
         <nav>
-
-            <a href="{{ url_for('dashboard_guru') }}">
-                Kembali ke Dashboard
-            </a>
-
-            |
-
-            <a href="{{ url_for('logout') }}">
-                Logout
-            </a>
-
+            <a href="{{ url_for('dashboard_guru') }}">Kembali ke Dashboard</a>
+            <a href="{{ url_for('logout') }}">Logout</a>
         </nav>
-
         <hr>
-
     </header>
-
 
     <!-- ==================================================
          DATA IDENTITAS SISWA
     =================================================== -->
-
     <main>
-
-        <section>
-
+        <section class="sec-identitas">
             <h2>Identitas Siswa</h2>
-
-            <table border="1">
-
+            <table>
                 <tr>
                     <th>Inisial</th>
-                    <td>{{ student["Inisial"] }}</td>
+                    <td>{{ student.Inisial }}</td>
                 </tr>
-
                 <tr>
                     <th>Kelas</th>
-                    <td>{{ student["Kelas"] }}</td>
+                    <td>{{ student.Kelas }}</td>
                 </tr>
-
                 <tr>
                     <th>Rombel</th>
-                    <td>{{ student["Rombel"] }}</td>
+                    <td>{{ student.Rombel }}</td>
                 </tr>
-
                 <tr>
                     <th>Sekolah</th>
-                    <td>{{ student["Sekolah"] }}</td>
+                    <td>{{ student.Sekolah }}</td>
                 </tr>
-
                 <tr>
                     <th>Jurusan</th>
-                    <td>{{ student["Jurusan"] }}</td>
+                    <td>{{ student.Jurusan }}</td>
                 </tr>
-
             </table>
-
         </section>
 
 
         <!-- ==================================================
-             SKOR VAK
+             SKOR VAK — BAR CHART
         =================================================== -->
-
-        <section>
-
+        <section class="sec-skor">
             <h2>Skor Gaya Belajar</h2>
-
-            <table border="1">
-
-                <thead>
-
-                    <tr>
-
-                        <th>Visual</th>
-                        <th>Auditori</th>
-                        <th>Kinestetik</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    <tr>
-
-                        <td>
-                            {{ student["Visual"] }}
-                        </td>
-
-                        <td>
-                            {{ student["Auditori"] }}
-                        </td>
-
-                        <td>
-                            {{ student["Kinestetik"] }}
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
+            <div class="bar-chart">
+                <div class="bar-item" style="--val: {{ student.Visual }}; --max: 100;">
+                    <span class="bar-label">Visual</span>
+                    <div class="bar-track">
+                        <div class="bar-fill"></div>
+                    </div>
+                    <span class="bar-value">{{ student.Visual }}</span>
+                </div>
+                <div class="bar-item" style="--val: {{ student.Auditori }}; --max: 100;">
+                    <span class="bar-label">Auditori</span>
+                    <div class="bar-track">
+                        <div class="bar-fill"></div>
+                    </div>
+                    <span class="bar-value">{{ student.Auditori }}</span>
+                </div>
+                <div class="bar-item" style="--val: {{ student.Kinestetik }}; --max: 100;">
+                    <span class="bar-label">Kinestetik</span>
+                    <div class="bar-track">
+                        <div class="bar-fill"></div>
+                    </div>
+                    <span class="bar-value">{{ student.Kinestetik }}</span>
+                </div>
+            </div>
         </section>
 
 
         <!-- ==================================================
-             PROPORSI VAK
+             PROPORSI VAK — PERCENTAGE CARDS
         =================================================== -->
-
-        <section>
-
+        <section class="sec-proporsi">
             <h2>Proporsi Gaya Belajar</h2>
-
-            <table border="1">
-
-                <thead>
-
-                    <tr>
-
-                        <th>Visual Prop</th>
-                        <th>Auditori Prop</th>
-                        <th>Kinestetik Prop</th>
-
-                    </tr>
-
-                </thead>
-
-                <tbody>
-
-                    <tr>
-
-                        <td>
-                            {{ student["Visual_prop"] }}
-                        </td>
-
-                        <td>
-                            {{ student["Auditori_prop"] }}
-                        </td>
-
-                        <td>
-                            {{ student["Kinestetik_prop"] }}
-                        </td>
-
-                    </tr>
-
-                </tbody>
-
-            </table>
-
+            <div class="prop-grid">
+                {% set visual_prop = student.Visual_prop|float %}
+                {% set auditori_prop = student.Auditori_prop|float %}
+                {% set kinestetik_prop = student.Kinestetik_prop|float %}
+                <div class="prop-card" style="--pct: {{ student.Visual_prop }};">
+                    <span class="prop-label">Visual</span>
+                    <span class="prop-number">{% set visual_text = ('%.2f'|format(visual_prop)) %}{% if visual_prop < 1 %}{{ visual_text | replace('0.', '.') }}{% else %}{{ visual_text | replace('.00', '') | replace('.0', '') }}{% endif %}<small>%</small></span>
+                    <div class="prop-bar"><div class="prop-fill"></div></div>
+                </div>
+                <div class="prop-card" style="--pct: {{ student.Auditori_prop }};">
+                    <span class="prop-label">Auditori</span>
+                    <span class="prop-number">{% set auditori_text = ('%.2f'|format(auditori_prop)) %}{% if auditori_prop < 1 %}{{ auditori_text | replace('0.', '.') }}{% else %}{{ auditori_text | replace('.00', '') | replace('.0', '') }}{% endif %}<small>%</small></span>
+                    <div class="prop-bar"><div class="prop-fill"></div></div>
+                </div>
+                <div class="prop-card" style="--pct: {{ student.Kinestetik_prop }};">
+                    <span class="prop-label">Kinestetik</span>
+                    <span class="prop-number">{% set kinestetik_text = ('%.2f'|format(kinestetik_prop)) %}{% if kinestetik_prop < 1 %}{{ kinestetik_text | replace('0.', '.') }}{% else %}{{ kinestetik_text | replace('.00', '') | replace('.0', '') }}{% endif %}<small>%</small></span>
+                    <div class="prop-bar"><div class="prop-fill"></div></div>
+                </div>
+            </div>
         </section>
 
 
         <!-- ==================================================
-             K-MEANS
+             K-MEANS — 3 ORBS
         =================================================== -->
-
-        <section>
-
+        <section class="sec-kmeans">
             <h2>Hasil K-Means</h2>
-
-            <table border="1">
-
-                <tr>
-
-                    <th>K-Means Cluster</th>
-
-                    <td>
-                        {{ student["KMeans_Cluster"] }}
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <th>K-Means Gaya Belajar</th>
-
-                    <td>
-                        {{ student["KMeans_Gaya_Belajar"] }}
-                    </td>
-
-                </tr>
-
-            </table>
-
+            <div class="kmeans-data">
+                <table>
+                    <tr>
+                        <th>K-Means Cluster</th>
+                        <td>{{ student.KMeans_Cluster }}</td>
+                    </tr>
+                    <tr>
+                        <th>K-Means Gaya Belajar</th>
+                        <td class="kmeans-result">{{ student.KMeans_Gaya_Belajar }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="orb-row">
+                {% set km_gaya = student.KMeans_Gaya_Belajar | lower | trim %}
+                <div class="orb-wrap">
+                    <div class="orb {% if km_gaya == 'visual' %}dominant{% endif %}" data-type="visual"></div>
+                    <span class="orb-name">Visual</span>
+                </div>
+                <div class="orb-wrap">
+                    <div class="orb {% if km_gaya == 'auditori' %}dominant{% endif %}" data-type="auditori"></div>
+                    <span class="orb-name">Auditori</span>
+                </div>
+                <div class="orb-wrap">
+                    <div class="orb {% if km_gaya == 'kinestetik' %}dominant{% endif %}" data-type="kinestetik"></div>
+                    <span class="orb-name">Kinestetik</span>
+                </div>
+            </div>
         </section>
 
 
         <!-- ==================================================
-             FCM
+             FCM — FUZZY ORB
         =================================================== -->
-
-        <section>
-
+        <section class="sec-fcm">
             <h2>Hasil Fuzzy C-Means</h2>
-
-            <table border="1">
-
-                <tr>
-
-                    <th>Membership Cluster 0</th>
-
-                    <td>
-                        {{ student["FCM_Membership_Cluster_0"] }}
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <th>Membership Cluster 1</th>
-
-                    <td>
-                        {{ student["FCM_Membership_Cluster_1"] }}
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <th>Membership Cluster 2</th>
-
-                    <td>
-                        {{ student["FCM_Membership_Cluster_2"] }}
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <th>FCM Cluster</th>
-
-                    <td>
-                        {{ student["FCM_Cluster"] }}
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <th>FCM Gaya Belajar</th>
-
-                    <td>
-                        {{ student["FCM_Gaya_Belajar"] }}
-                    </td>
-
-                </tr>
-
-                <tr>
-
-                    <th>Derajat Keanggotaan</th>
-
-                    <td>
-                        {{ student["FCM_Derajat_Keanggotaan"] }}
-                    </td>
-
-                </tr>
-
-            </table>
-
+            <div class="fcm-orb-wrap">
+                {% set m0 = student.FCM_Membership_Cluster_0 | float %}
+                {% set m1 = student.FCM_Membership_Cluster_1 | float %}
+                {% set m2 = student.FCM_Membership_Cluster_2 | float %}
+                {% set total_m = m0 + m1 + m2 %}
+                {% if total_m == 0 %}{% set total_m = 1 %}{% endif %}
+                {% set p0 = (m0 / total_m * 100) | round(2) %}
+                {% set p1 = (m1 / total_m * 100) | round(2) %}
+                {% set p2 = (m2 / total_m * 100) | round(2) %}
+                {% set fcm_gaya = student.FCM_Gaya_Belajar | lower | trim %}
+                <div class="fcm-orb"
+                     style="--m0: {{ p0 }}%; --m1: {{ p1 }}%; --m2: {{ p2 }}%;"
+                     data-dominant="{{ fcm_gaya }}">
+                    <div class="fcm-inner">
+                        <span class="fcm-label">{{ student.FCM_Gaya_Belajar }}</span>
+                        <span class="fcm-pct">{{ '%.2f'|format(student.FCM_Derajat_Keanggotaan|float) }}</span>
+                    </div>
+                </div>
+                <div class="fcm-legend">
+                    <div class="legend-item"><span class="dot visual"></span>Cluster 0: {{ (m0 * 100) | round(2) }}%</div>
+                    <div class="legend-item"><span class="dot auditori"></span>Cluster 1: {{ (m1 * 100) | round(2) }}%</div>
+                    <div class="legend-item"><span class="dot kinestetik"></span>Cluster 2: {{ (m2 * 100) | round(2) }}%</div>
+                </div>
+            </div>
+            <div class="fcm-data">
+                <table>
+                    <tr>
+                        <th>Membership Cluster 0</th>
+                        <td>{{ (student.FCM_Membership_Cluster_0|float * 100) | round(2) }}%</td>
+                    </tr>
+                    <tr>
+                        <th>Membership Cluster 1</th>
+                        <td>{{ (student.FCM_Membership_Cluster_1|float * 100) | round(2) }}%</td>
+                    </tr>
+                    <tr>
+                        <th>Membership Cluster 2</th>
+                        <td>{{ (student.FCM_Membership_Cluster_2|float * 100) | round(2) }}%</td>
+                    </tr>
+                    <tr>
+                        <th>FCM Cluster</th>
+                        <td>{{ student.FCM_Cluster }}</td>
+                    </tr>
+                    <tr>
+                        <th>FCM Gaya Belajar</th>
+                        <td class="fcm-result">{{ student.FCM_Gaya_Belajar }}</td>
+                    </tr>
+                    <tr>
+                        <th>Derajat Keanggotaan</th>
+                        <td>{{ student.FCM_Derajat_Keanggotaan }}</td>
+                    </tr>
+                </table>
+            </div>
         </section>
 
 
         <!-- ==================================================
              REKOMENDASI JURUSAN
         =================================================== -->
-
-        <section>
-
+        <section class="sec-rekomendasi">
             <h2>Rekomendasi Jurusan</h2>
-
-            <p>
-                Rekomendasi jurusan akan diberikan berdasarkan
-                gaya belajar siswa.
+            <p class="rekom-desc">
+                Berdasarkan hasil analisis gaya belajar,
+                sistem memberikan rekomendasi jurusan yang
+                disesuaikan dengan karakteristik gaya belajar siswa.
             </p>
 
-            <!--
-                Bagian rekomendasi akan kita hubungkan
-                dengan tiga halaman:
+            {% set gaya = student.KMeans_Gaya_Belajar | lower | trim %}
 
-                rekomendasi_visual.html
-                rekomendasi_auditori.html
-                rekomendasi_kinestetik.html
-
-                pada tahap berikutnya.
-            -->
-
+            {% if gaya == "visual" %}
+                <div class="recommendation-box">
+                    <h3>Gaya Belajar Visual</h3>
+                    <p>Siswa memiliki gaya belajar dominan <strong>Visual</strong>.</p>
+                    <a href="{{ url_for('rekomendasi_visual') }}" class="recommendation-button">
+                        Lihat Rekomendasi Jurusan Visual
+                    </a>
+                </div>
+            {% elif gaya == "auditori" %}
+                <div class="recommendation-box">
+                    <h3>Gaya Belajar Auditori</h3>
+                    <p>Siswa memiliki gaya belajar dominan <strong>Auditori</strong>.</p>
+                    <a href="{{ url_for('rekomendasi_auditori') }}" class="recommendation-button">
+                        Lihat Rekomendasi Jurusan Auditori
+                    </a>
+                </div>
+            {% elif gaya == "kinestetik" %}
+                <div class="recommendation-box">
+                    <h3>Gaya Belajar Kinestetik</h3>
+                    <p>Siswa memiliki gaya belajar dominan <strong>Kinestetik</strong>.</p>
+                    <a href="{{ url_for('rekomendasi_kinestetik') }}" class="recommendation-button">
+                        Lihat Rekomendasi Jurusan Kinestetik
+                    </a>
+                </div>
+            {% else %}
+                <div class="recommendation-box">
+                    <h3>Rekomendasi Belum Tersedia</h3>
+                    <p>Gaya belajar siswa belum dapat dikenali oleh sistem.</p>
+                </div>
+            {% endif %}
         </section>
-
     </main>
 
 
     <!-- ==================================================
          FOOTER
     =================================================== -->
-
     <footer>
-
         <hr>
-
-        <p>
-            Sistem Analisis Gaya Belajar VAK
-        </p>
-
-        <p>
-            K-Means &amp; Fuzzy C-Means
-        </p>
-
+        <p>Sistem Analisis Gaya Belajar VAK</p>
+        <p>K-Means &amp; Fuzzy C-Means</p>
+        <span class="footer-meta">// ANALYSIS COMPLETE</span>
     </footer>
 
 </body>
-
 </html>

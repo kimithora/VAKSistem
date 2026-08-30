@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session
 from pathlib import Path
+import os
 
 from utils.data import (
     search_students,
@@ -19,6 +20,11 @@ BASE_DIR = Path(__file__).resolve().parent
 TEMPLATES_DIR = BASE_DIR / "template"
 STATIC_DIR = BASE_DIR / "static"
 
+DATA_DIR = BASE_DIR / "data"
+
+CSV_PATH = DATA_DIR / "SMA1_DATABASE.CSV"
+TOKEN_PATH = DATA_DIR / "token.json"
+
 
 # =========================================================
 # FLASK APP
@@ -30,35 +36,79 @@ app = Flask(
     static_folder=str(STATIC_DIR)
 )
 
-app.secret_key = "vak-research-development-key"
+
+# =========================================================
+# SECRET KEY
+# =========================================================
+
+app.secret_key = os.environ.get(
+    "SECRET_KEY",
+    "vak-research-development-key"
+)
 
 
 # =========================================================
-# CEK PROJECT
+# SESSION CONFIGURATION
+# =========================================================
+
+app.config["SESSION_COOKIE_HTTPONLY"] = True
+app.config["SESSION_COOKIE_SAMESITE"] = "Lax"
+
+# Vercel menggunakan HTTPS.
+if os.environ.get("VERCEL"):
+    app.config["SESSION_COOKIE_SECURE"] = True
+
+
+# =========================================================
+# PROJECT CHECK
 # =========================================================
 
 print("=" * 60)
+print("VAK SYSTEM - PROJECT CHECK")
+print("=" * 60)
+
 print("PROJECT PATH    :", BASE_DIR)
+
 print("TEMPLATE PATH   :", TEMPLATES_DIR)
-print("STATIC PATH     :", STATIC_DIR)
 print("TEMPLATE EXISTS :", TEMPLATES_DIR.exists())
+
+print("STATIC PATH     :", STATIC_DIR)
 print("STATIC EXISTS   :", STATIC_DIR.exists())
+
+print("DATA PATH       :", DATA_DIR)
+print("DATA EXISTS     :", DATA_DIR.exists())
+
+print("CSV PATH        :", CSV_PATH)
+print("CSV EXISTS      :", CSV_PATH.exists())
+
+print("TOKEN PATH      :", TOKEN_PATH)
+print("TOKEN EXISTS    :", TOKEN_PATH.exists())
+
 print(
     "TENTANG EXISTS  :",
     (TEMPLATES_DIR / "tentang.html").exists()
 )
+
 print(
     "LOGIN EXISTS    :",
     (TEMPLATES_DIR / "login.html").exists()
 )
+
 print(
-    "CSV EXISTS      :",
-    (BASE_DIR / "SMA1_DATABASE.csv").exists()
+    "GURU EXISTS     :",
+    (TEMPLATES_DIR / "guru" / "dashboard.html").exists()
 )
+
 print(
-    "TOKEN EXISTS    :",
-    (BASE_DIR / "token.json").exists()
+    "HASIL GURU      :",
+    (TEMPLATES_DIR / "guru" / "hasil_siswa.html").exists()
 )
+
+print(
+    "HASIL SISWA     :",
+    (TEMPLATES_DIR / "siswa" / "hasil.html").exists()
+)
+
 print("=" * 60)
 
 
@@ -69,7 +119,9 @@ print("=" * 60)
 @app.route("/")
 def tentang():
 
-    return render_template("tentang.html")
+    return render_template(
+        "tentang.html"
+    )
 
 
 # =========================================================
@@ -81,82 +133,129 @@ def login():
 
     error = None
 
-    if request.method == "POST":
+    # -----------------------------------------------------
+    # GET
+    # -----------------------------------------------------
 
-        token = request.form.get("token", "").strip()
+    if request.method == "GET":
 
-        # ---------------------------------------------
-        # TOKEN KOSONG
-        # ---------------------------------------------
-
-        if not token:
-
-            error = "Silakan masukkan token."
-
-            return render_template(
-                "login.html",
-                error=error
-            )
+        return render_template(
+            "login.html",
+            error=None
+        )
 
 
-        # ---------------------------------------------
-        # AUTENTIKASI
-        # ---------------------------------------------
+    # -----------------------------------------------------
+    # AMBIL TOKEN
+    # -----------------------------------------------------
 
-        user = authenticate(token)
-
-        if user is None:
-
-            error = "Token tidak valid."
-
-            return render_template(
-                "login.html",
-                error=error
-            )
+    token = request.form.get(
+        "token",
+        ""
+    ).strip()
 
 
-        # ---------------------------------------------
-        # SIMPAN SESSION
-        # ---------------------------------------------
+    # -----------------------------------------------------
+    # TOKEN KOSONG
+    # -----------------------------------------------------
 
-        session.clear()
+    if not token:
 
-        session["logged_in"] = True
-        session["inisial"] = user["Inisial"]
-        session["token"] = user["Token"]
-        session["role"] = user["Role"]
-
-
-        # ---------------------------------------------
-        # REDIRECT BERDASARKAN ROLE
-        # ---------------------------------------------
-
-        role = user["Role"].lower()
-
-        if role == "guru":
-
-            return redirect(
-                url_for("dashboard_guru")
-            )
-
-        elif role == "siswa":
-
-            return redirect(
-                url_for("hasil_siswa")
-            )
+        return render_template(
+            "login.html",
+            error="Silakan masukkan token."
+        )
 
 
-        # ---------------------------------------------
-        # ROLE TIDAK DIKENALI
-        # ---------------------------------------------
+    # -----------------------------------------------------
+    # AUTENTIKASI
+    # -----------------------------------------------------
 
-        session.clear()
+    user = authenticate(token)
 
-        error = "Role pengguna tidak dikenali."
+
+    if user is None:
+
+        return render_template(
+            "login.html",
+            error="Token tidak valid."
+        )
+
+
+    # -----------------------------------------------------
+    # AMBIL DATA USER
+    # -----------------------------------------------------
+
+    inisial = user.get("Inisial")
+    role = user.get("Role")
+
+
+    if not inisial or not role:
+
+        return render_template(
+            "login.html",
+            error="Data pengguna tidak lengkap."
+        )
+
+
+    # -----------------------------------------------------
+    # NORMALISASI ROLE
+    # -----------------------------------------------------
+
+    role = str(role).strip().lower()
+    inisial = str(inisial).strip()
+
+
+    # -----------------------------------------------------
+    # VALIDASI ROLE
+    # -----------------------------------------------------
+
+    if role not in ("guru", "siswa"):
+
+        return render_template(
+            "login.html",
+            error="Role pengguna tidak dikenali."
+        )
+
+
+    # -----------------------------------------------------
+    # SIMPAN SESSION
+    # -----------------------------------------------------
+
+    session.clear()
+
+    session["logged_in"] = True
+    session["inisial"] = inisial
+    session["role"] = role
+
+
+    # -----------------------------------------------------
+    # REDIRECT
+    # -----------------------------------------------------
+
+    if role == "guru":
+
+        return redirect(
+            url_for("dashboard_guru")
+        )
+
+
+    if role == "siswa":
+
+        return redirect(
+            url_for("hasil_siswa")
+        )
+
+
+    # -----------------------------------------------------
+    # FALLBACK
+    # -----------------------------------------------------
+
+    session.clear()
 
     return render_template(
         "login.html",
-        error=error
+        error="Terjadi kesalahan pada autentikasi."
     )
 
 
@@ -167,9 +266,9 @@ def login():
 @app.route("/guru")
 def dashboard_guru():
 
-    # ---------------------------------------------
+    # -----------------------------------------------------
     # CEK LOGIN
-    # ---------------------------------------------
+    # -----------------------------------------------------
 
     if not session.get("logged_in"):
 
@@ -178,9 +277,9 @@ def dashboard_guru():
         )
 
 
-    # ---------------------------------------------
+    # -----------------------------------------------------
     # CEK ROLE
-    # ---------------------------------------------
+    # -----------------------------------------------------
 
     if session.get("role", "").lower() != "guru":
 
@@ -189,16 +288,18 @@ def dashboard_guru():
         )
 
 
-    # ---------------------------------------------
+    # -----------------------------------------------------
     # SEARCH SISWA
-    # ---------------------------------------------
+    # -----------------------------------------------------
 
     keyword = request.args.get(
         "search",
         ""
     ).strip()
 
+
     students = []
+
 
     if keyword:
 
@@ -207,16 +308,16 @@ def dashboard_guru():
         )
 
 
-    # ---------------------------------------------
-    # STATISTIK DATABASE
-    # ---------------------------------------------
+    # -----------------------------------------------------
+    # STATISTIK
+    # -----------------------------------------------------
 
     statistics = get_dashboard_statistics()
 
 
-    # ---------------------------------------------
-    # RENDER DASHBOARD
-    # ---------------------------------------------
+    # -----------------------------------------------------
+    # RENDER
+    # -----------------------------------------------------
 
     return render_template(
         "guru/dashboard.html",
@@ -233,9 +334,9 @@ def dashboard_guru():
 @app.route("/guru/siswa/<inisial>")
 def hasil_siswa_guru(inisial):
 
-    # ---------------------------------------------
+    # -----------------------------------------------------
     # CEK LOGIN
-    # ---------------------------------------------
+    # -----------------------------------------------------
 
     if not session.get("logged_in"):
 
@@ -244,9 +345,9 @@ def hasil_siswa_guru(inisial):
         )
 
 
-    # ---------------------------------------------
-    # CEK ROLE GURU
-    # ---------------------------------------------
+    # -----------------------------------------------------
+    # CEK ROLE
+    # -----------------------------------------------------
 
     if session.get("role", "").lower() != "guru":
 
@@ -255,9 +356,24 @@ def hasil_siswa_guru(inisial):
         )
 
 
-    # ---------------------------------------------
-    # AMBIL DATA SISWA
-    # ---------------------------------------------
+    # -----------------------------------------------------
+    # VALIDASI INISIAL
+    # -----------------------------------------------------
+
+    inisial = str(inisial).strip()
+
+
+    if not inisial:
+
+        return (
+            "Inisial siswa tidak valid.",
+            400
+        )
+
+
+    # -----------------------------------------------------
+    # AMBIL DATA
+    # -----------------------------------------------------
 
     student = get_student_by_initial(
         inisial
@@ -272,9 +388,9 @@ def hasil_siswa_guru(inisial):
         )
 
 
-    # ---------------------------------------------
-    # TAMPILKAN HASIL
-    # ---------------------------------------------
+    # -----------------------------------------------------
+    # RENDER
+    # -----------------------------------------------------
 
     return render_template(
         "guru/hasil_siswa.html",
@@ -289,9 +405,9 @@ def hasil_siswa_guru(inisial):
 @app.route("/siswa")
 def hasil_siswa():
 
-    # ---------------------------------------------
+    # -----------------------------------------------------
     # CEK LOGIN
-    # ---------------------------------------------
+    # -----------------------------------------------------
 
     if not session.get("logged_in"):
 
@@ -300,9 +416,9 @@ def hasil_siswa():
         )
 
 
-    # ---------------------------------------------
-    # CEK ROLE SISWA
-    # ---------------------------------------------
+    # -----------------------------------------------------
+    # CEK ROLE
+    # -----------------------------------------------------
 
     if session.get("role", "").lower() != "siswa":
 
@@ -311,18 +427,27 @@ def hasil_siswa():
         )
 
 
-    # ---------------------------------------------
-    # AMBIL INISIAL DARI SESSION
-    # ---------------------------------------------
+    # -----------------------------------------------------
+    # AMBIL INISIAL
+    # -----------------------------------------------------
 
     inisial = session.get(
         "inisial"
     )
 
 
-    # ---------------------------------------------
+    if not inisial:
+
+        session.clear()
+
+        return redirect(
+            url_for("login")
+        )
+
+
+    # -----------------------------------------------------
     # AMBIL DATA SISWA
-    # ---------------------------------------------
+    # -----------------------------------------------------
 
     student = get_student_by_initial(
         inisial
@@ -339,9 +464,9 @@ def hasil_siswa():
         )
 
 
-    # ---------------------------------------------
-    # TAMPILKAN HASIL
-    # ---------------------------------------------
+    # -----------------------------------------------------
+    # RENDER
+    # -----------------------------------------------------
 
     return render_template(
         "siswa/hasil.html",
@@ -362,6 +487,7 @@ def rekomendasi_visual():
             url_for("login")
         )
 
+
     return render_template(
         "rekomendasi/rekomendasi_visual.html"
     )
@@ -380,6 +506,7 @@ def rekomendasi_auditori():
             url_for("login")
         )
 
+
     return render_template(
         "rekomendasi/rekomendasi_auditori.html"
     )
@@ -397,6 +524,7 @@ def rekomendasi_kinestetik():
         return redirect(
             url_for("login")
         )
+
 
     return render_template(
         "rekomendasi/rekomendasi_kinestetik.html"

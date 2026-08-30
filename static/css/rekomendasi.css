@@ -1,0 +1,962 @@
+/* ==========================================================================
+   REKOMENDASI.CSS — VAK Recommendation Pages
+   Pages: rekomendasi_visual.html, rekomendasi_auditori.html, rekomendasi_kinestetik.html
+   Theme: Dark Cyber Academic
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* --------------------------------------------------------------------------
+   ROOT VARIABLES
+   -------------------------------------------------------------------------- */
+:root {
+    --content-max: 1180px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 24px;
+    --transition-fast: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+    --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+    /* Base Colors */
+    --bg: #070b14;
+    --bg-primary: #070b14;
+    --surface: #0f1623;
+    --surface-raised: #141d2e;
+    --surface-hover: #1a2438;
+
+    --text: #e8ecf1;
+    --text-primary: #e8ecf1;
+    --text-secondary: #9fb1c7;
+    --text-muted: #5d7290;
+
+    /* Accent — Cyan */
+    --accent: #62d9ff;
+    --accent-rgb: 98, 217, 255;
+    --accent-dim: rgba(var(--accent-rgb), 0.35);
+    --accent-mid: rgba(var(--accent-rgb), 0.65);
+    --accent-bright: rgba(var(--accent-rgb), 0.95);
+    --accent-border: rgba(var(--accent-rgb), 0.25);
+    --accent-soft: rgba(var(--accent-rgb), 0.08);
+    --accent-glow: rgba(var(--accent-rgb), 0.12);
+    --accent-glow-strong: rgba(var(--accent-rgb), 0.22);
+
+    /* VAK Semantic Colors */
+    --v-visual: #62d9ff;
+    --v-auditori: #a78bfa;
+    --v-kinestetik: #34d399;
+
+    /* Borders */
+    --border: rgba(255, 255, 255, 0.07);
+    --border-subtle: rgba(255, 255, 255, 0.04);
+    --border-accent: rgba(var(--accent-rgb), 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   RESET & BASE
+   -------------------------------------------------------------------------- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-main);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.65;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   HEADER — Pattern A (with classes: Visual & Auditori)
+   -------------------------------------------------------------------------- */
+.recommendation-header {
+    position: relative;
+    background: linear-gradient(180deg, var(--surface) 0%, var(--bg-primary) 100%);
+    border-bottom: 1px solid var(--border);
+    padding: clamp(3rem, 8vw, 5rem) clamp(1.25rem, 4vw, 3rem) clamp(2rem, 5vw, 3.5rem);
+    overflow: hidden;
+}
+
+.recommendation-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(var(--accent-rgb), 0.06) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.header-content {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    position: relative;
+    z-index: 1;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 1.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    color: var(--text-muted);
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+    transition: all var(--transition-fast);
+}
+
+.back-button:hover {
+    color: var(--accent);
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+    box-shadow: 0 0 20px var(--accent-glow);
+    transform: translateX(-2px);
+}
+
+.back-button::before {
+    content: '←';
+    font-size: 1.1em;
+}
+
+.header-text .label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.5;
+    margin-bottom: 0.75rem;
+}
+
+.header-text h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    max-width: 700px;
+}
+
+.header-text p {
+    font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+    color: var(--text-secondary);
+    max-width: 560px;
+    line-height: 1.7;
+}
+
+/* --------------------------------------------------------------------------
+   HEADER — Pattern B (semantic: Kinestetik)
+   -------------------------------------------------------------------------- */
+body > header:not(.recommendation-header) {
+    position: relative;
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: clamp(2.5rem, 6vw, 4rem) clamp(1.25rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+body > header:not(.recommendation-header) h1 {
+    font-size: clamp(1.8rem, 4.5vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--text);
+    position: relative;
+    max-width: 700px;
+    padding-left: 1rem;
+    border-left: 2px solid var(--accent);
+    border-left-color: rgba(var(--accent-rgb), 0.35);
+}
+
+body > header:not(.recommendation-header) > p {
+    font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    opacity: 0.85;
+    max-width: 520px;
+}
+
+body > header:not(.recommendation-header) nav {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    flex-wrap: wrap;
+}
+
+body > header:not(.recommendation-header) nav a {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.6rem 1.2rem;
+    font-family: var(--font-main);
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    color: var(--text-muted);
+    border-radius: var(--radius-md);
+    border: 1px solid transparent;
+    background: transparent;
+    transition: all var(--transition-fast);
+}
+
+body > header:not(.recommendation-header) nav a:hover {
+    color: var(--accent);
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+body > header:not(.recommendation-header) hr {
+    border: none;
+    height: 1px;
+    margin-top: 0.75rem;
+    background: linear-gradient(90deg, transparent 0%, var(--border) 15%, var(--border) 70%, rgba(var(--accent-rgb), 0.12) 85%, transparent 100%);
+}
+
+/* --------------------------------------------------------------------------
+   MAIN — Pattern A (with classes)
+   -------------------------------------------------------------------------- */
+.recommendation-container {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* --------------------------------------------------------------------------
+   MAIN — Pattern B (semantic)
+   -------------------------------------------------------------------------- */
+body > main:not(.recommendation-container) {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: clamp(2rem, 5vw, 3.5rem) clamp(1.25rem, 4vw, 3rem);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* --------------------------------------------------------------------------
+   SECTIONS — Common
+   -------------------------------------------------------------------------- */
+section {
+    position: relative;
+    padding-top: 1.5rem;
+}
+
+section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border) 0%, var(--border) 60%, transparent 100%);
+}
+
+/* Counter for sections */
+main { counter-reset: sec; }
+main > section { counter-increment: sec; }
+
+main > section > h2::before {
+    content: counter(sec, decimal-leading-zero) ' /';
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    opacity: 0.5;
+    margin-bottom: 0.75rem;
+    line-height: 1;
+}
+
+main > section > h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    color: var(--text);
+    margin-bottom: 1rem;
+}
+
+main > section > h2::after {
+    content: '';
+    display: block;
+    width: 40px;
+    height: 2px;
+    background: var(--accent);
+    opacity: 0.25;
+    margin-top: 0.75rem;
+    border-radius: 1px;
+}
+
+main > section > p {
+    color: var(--text-secondary);
+    margin-bottom: 1.5rem;
+    max-width: 680px;
+}
+
+/* --------------------------------------------------------------------------
+   INTRO SECTION
+   -------------------------------------------------------------------------- */
+.intro-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    position: relative;
+    overflow: hidden;
+}
+
+.intro-section::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 36px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+}
+
+.intro-section::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 1px;
+    height: 36px;
+    background: var(--accent);
+    opacity: 0.4;
+}
+
+.intro-section h2::before {
+    content: 'INTRO / OVERVIEW';
+}
+
+.intro-section p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+    max-width: 720px;
+}
+
+.intro-section p:last-child {
+    margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   FIELD SECTION
+   -------------------------------------------------------------------------- */
+.field-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.section-heading {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.section-number {
+    font-family: var(--font-mono);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    color: var(--accent);
+    opacity: 0.15;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: -0.1em;
+}
+
+.section-heading h2 {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 0.375rem;
+}
+
+.section-heading h2::before,
+.section-heading h2::after {
+    display: none;
+}
+
+.section-heading p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    max-width: 600px;
+}
+
+/* --------------------------------------------------------------------------
+   RECOMMENDATION LIST & MAJOR CARDS
+   -------------------------------------------------------------------------- */
+.recommendation-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+}
+
+.major-card {
+    display: flex;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+    position: relative;
+}
+
+.major-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-accent);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.28), 0 0 30px rgba(var(--accent-rgb), 0.05);
+}
+
+/* Corner accent */
+.major-card::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.major-number {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 1.5rem 0.75rem;
+    min-width: 56px;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    opacity: 0.5;
+    background: rgba(255, 255, 255, 0.015);
+    border-right: 1px solid var(--border-subtle);
+    flex-shrink: 0;
+}
+
+.major-content {
+    padding: 1.5rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.major-content h3 {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    position: relative;
+    padding-left: 1rem;
+}
+
+.major-content h3::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.35em;
+    width: 3px;
+    height: 0.6em;
+    background: var(--accent);
+    opacity: 0.5;
+    border-radius: 1px;
+}
+
+/* Info Groups */
+.info-group {
+    margin-bottom: 1rem;
+}
+
+.info-group:last-of-type {
+    margin-bottom: 0;
+}
+
+.info-group h4 {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
+}
+
+.info-group p,
+.info-group ul {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+.info-group ul {
+    list-style: none;
+    padding: 0;
+}
+
+.info-group ul li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+.info-group ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    opacity: 0.5;
+    font-weight: 700;
+}
+
+/* Reason Box */
+.reason {
+    margin-top: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: rgba(var(--accent-rgb), 0.04);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-left-color: rgba(var(--accent-rgb), 0.3);
+    border-radius: var(--radius-sm);
+}
+
+.reason h4 {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.7;
+    margin-bottom: 0.5rem;
+}
+
+.reason p {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+/* --------------------------------------------------------------------------
+   SEMANTIC ARTICLES (Kinestetik pattern)
+   -------------------------------------------------------------------------- */
+body > main:not(.recommendation-container) article {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1.25rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition-base), border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+body > main:not(.recommendation-container) article:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-accent);
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.28), 0 0 30px rgba(var(--accent-rgb), 0.05);
+}
+
+body > main:not(.recommendation-container) article::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 28px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.3;
+}
+
+body > main:not(.recommendation-container) article h3 {
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+    position: relative;
+    padding-left: 1rem;
+}
+
+body > main:not(.recommendation-container) article h3::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.35em;
+    width: 3px;
+    height: 0.6em;
+    background: var(--accent);
+    opacity: 0.5;
+    border-radius: 1px;
+}
+
+body > main:not(.recommendation-container) article h4 {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+}
+
+body > main:not(.recommendation-container) article h4:first-of-type {
+    margin-top: 0;
+}
+
+body > main:not(.recommendation-container) article p,
+body > main:not(.recommendation-container) article ul {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.7;
+}
+
+body > main:not(.recommendation-container) article ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 0.75rem;
+}
+
+body > main:not(.recommendation-container) article ul li {
+    position: relative;
+    padding-left: 1.25rem;
+    margin-bottom: 0.25rem;
+}
+
+body > main:not(.recommendation-container) article ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    opacity: 0.5;
+    font-weight: 700;
+}
+
+/* Last h4 + p combo = reason box for semantic */
+body > main:not(.recommendation-container) article h4:last-of-type {
+    margin-top: 1.25rem;
+    padding: 1rem 1.25rem 0.5rem;
+    background: rgba(var(--accent-rgb), 0.04);
+    border: 1px solid var(--border);
+    border-left: 3px solid rgba(var(--accent-rgb), 0.3);
+    border-bottom: none;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    margin-bottom: 0;
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    padding-left: calc(1.25rem + 1rem);
+    width: calc(100% + 2.5rem);
+}
+
+body > main:not(.recommendation-container) article h4:last-of-type + p {
+    background: rgba(var(--accent-rgb), 0.04);
+    border: 1px solid var(--border);
+    border-top: none;
+    border-left: 3px solid rgba(var(--accent-rgb), 0.3);
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    padding: 0.5rem 1.25rem 1rem;
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
+    padding-left: calc(1.25rem + 1rem);
+    width: calc(100% + 2.5rem);
+    margin-bottom: -1.5rem;
+    margin-top: 0;
+}
+
+/* --------------------------------------------------------------------------
+   NOTES SECTION
+   -------------------------------------------------------------------------- */
+.notes-section {
+    background: var(--surface);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    position: relative;
+    overflow: hidden;
+}
+
+.notes-section::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 36px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.5;
+}
+
+.notes-section::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 1px;
+    height: 36px;
+    background: var(--accent);
+    opacity: 0.5;
+}
+
+.notes-section h2::before {
+    content: 'NOTES / DISCLAIMER';
+}
+
+.notes-section p {
+    color: var(--text-secondary);
+    max-width: 720px;
+    margin-bottom: 0;
+}
+
+/* Semantic notes section */
+body > main:not(.recommendation-container) > section:last-of-type {
+    background: var(--surface);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    position: relative;
+    overflow: hidden;
+}
+
+body > main:not(.recommendation-container) > section:last-of-type::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 36px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.5;
+}
+
+body > main:not(.recommendation-container) > section:last-of-type::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 1px;
+    height: 36px;
+    background: var(--accent);
+    opacity: 0.5;
+}
+
+body > main:not(.recommendation-container) > section:last-of-type h2::before {
+    content: 'NOTES / DISCLAIMER';
+}
+
+body > main:not(.recommendation-container) > section:last-of-type p {
+    color: var(--text-secondary);
+    max-width: 720px;
+    margin-bottom: 0;
+}
+
+/* --------------------------------------------------------------------------
+   FOOTER
+   -------------------------------------------------------------------------- */
+footer {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: clamp(1.5rem, 3vw, 2rem) clamp(1.25rem, 4vw, 3rem);
+    text-align: center;
+}
+
+footer hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, var(--border) 20%, var(--border) 80%, transparent 100%);
+    margin-bottom: 1.25rem;
+}
+
+footer p {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0.5;
+    line-height: 1.8;
+}
+
+footer::after {
+    content: '// RECOMMENDATION COMPLETE';
+    display: block;
+    margin-top: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.15;
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — TABLET
+   -------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+    .recommendation-list {
+        grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+        gap: 1rem;
+    }
+
+    .section-number {
+        font-size: clamp(1.5rem, 3vw, 2rem);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   RESPONSIVE — MOBILE
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+    .recommendation-header {
+        padding: 2rem 1.25rem 2.5rem;
+    }
+
+    .header-text h1 {
+        font-size: clamp(1.6rem, 10vw, 2.2rem);
+    }
+
+    .back-button {
+        font-size: 0.75rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .recommendation-container,
+    body > main:not(.recommendation-container) {
+        padding: 1.5rem 1.25rem;
+        gap: 2rem;
+    }
+
+    .major-card {
+        flex-direction: column;
+    }
+
+    .major-number {
+        padding: 1rem 1.5rem 0;
+        border-right: none;
+        border-bottom: 1px solid var(--border-subtle);
+        justify-content: flex-start;
+        font-size: 0.85rem;
+    }
+
+    .major-content {
+        padding: 1.25rem;
+    }
+
+    .section-heading {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .section-number {
+        font-size: 1.5rem;
+    }
+
+    body > header:not(.recommendation-header) h1 {
+        font-size: clamp(1.6rem, 10vw, 2.2rem);
+        padding-left: 0.75rem;
+    }
+
+    body > header:not(.recommendation-header) nav a {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+
+    footer {
+        padding: 1.5rem 1.25rem;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   ACCESSIBILITY
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+a:focus-visible {
+    border-radius: var(--radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   PRINT
+   -------------------------------------------------------------------------- */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .major-card,
+    .intro-section,
+    .notes-section,
+    article {
+        border: 1px solid #ccc;
+        box-shadow: none;
+        break-inside: avoid;
+    }
+
+    .back-button {
+        display: none;
+    }
+}

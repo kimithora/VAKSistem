@@ -3,12 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tentang Penelitian | VAK</title>
 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
@@ -16,256 +11,132 @@
 </head>
 
 <body>
-
-    <!-- ==============================
-         HEADER
-    =============================== -->
-
     <header>
-
         <h1>Analisis Gaya Belajar Siswa</h1>
 
         <p>
-            Sistem Analisis Gaya Belajar
-            Menggunakan K-Means dan Fuzzy C-Means
+            Sistem Analisis Gaya Belajar Menggunakan K-Means dan Fuzzy C-Means
         </p>
 
-        <nav>
-
-            <a href="{{ url_for('tentang') }}">
-                Tentang Penelitian
-            </a>
-
-            |
-
-            <a href="{{ url_for('login') }}">
-                Login
-            </a>
-
+        <nav aria-label="Navigasi utama">
+            <a href="{{ url_for('tentang') }}" class="active">Tentang Penelitian</a>
+            <span class="divider" aria-hidden="true">|</span>
+            <a href="{{ url_for('login') }}">Login</a>
         </nav>
 
         <hr>
-
     </header>
 
-
-    <!-- ==============================
-         KONTEN UTAMA
-    =============================== -->
-
     <main>
-
-        <!-- PENELITIAN -->
-
         <section>
-
             <h2>Tentang Penelitian</h2>
-
             <p>
-                Penelitian ini membahas analisis kecenderungan
-                gaya belajar siswa berdasarkan tiga aspek,
-                yaitu Visual, Auditori, dan Kinestetik (VAK).
+                Penelitian ini membahas analisis kecenderungan gaya belajar siswa
+                berdasarkan tiga aspek, yaitu Visual, Auditori, dan Kinestetik (VAK).
             </p>
-
             <p>
-                Data gaya belajar siswa dianalisis menggunakan
-                metode clustering K-Means dan Fuzzy C-Means
-                untuk memperoleh informasi mengenai
+                Data gaya belajar siswa dianalisis menggunakan metode clustering
+                K-Means dan Fuzzy C-Means untuk memperoleh informasi mengenai
                 kecenderungan kelompok gaya belajar siswa.
             </p>
-
         </section>
 
-
-        <!-- GAYA BELAJAR -->
-
         <section>
-
             <h2>Pengertian Gaya Belajar</h2>
-
             <p>
-                Gaya belajar merujuk pada kecenderungan
-                individu dalam menerima, memahami, dan
-                memproses informasi dalam kegiatan pembelajaran.
+                Gaya belajar merujuk pada kecenderungan individu dalam menerima,
+                memahami, dan memproses informasi dalam kegiatan pembelajaran.
             </p>
-
             <p>
-                Dalam penelitian ini, gaya belajar
-                direpresentasikan melalui tiga kategori,
-                yaitu Visual, Auditori, dan Kinestetik.
+                Dalam penelitian ini, gaya belajar direpresentasikan melalui tiga
+                kategori, yaitu Visual, Auditori, dan Kinestetik.
             </p>
-
         </section>
 
-
-        <!-- VAK -->
-
         <section>
-
             <h2>Apa itu VAK?</h2>
 
-            <h3>Visual</h3>
+            <article class="vak-item">
+                <h3 data-no="01">Visual</h3>
+                <p>
+                    Gaya belajar visual berkaitan dengan kecenderungan memahami
+                    informasi melalui representasi visual seperti gambar, tulisan,
+                    diagram, grafik, dan bentuk visual lainnya.
+                </p>
+            </article>
 
-            <p>
-                Gaya belajar visual berkaitan dengan
-                kecenderungan memahami informasi melalui
-                representasi visual seperti gambar, tulisan,
-                diagram, grafik, dan bentuk visual lainnya.
-            </p>
+            <article class="vak-item">
+                <h3 data-no="02">Auditori</h3>
+                <p>
+                    Gaya belajar auditori berkaitan dengan kecenderungan memahami
+                    informasi melalui pendengaran, penjelasan verbal, diskusi, dan
+                    komunikasi lisan.
+                </p>
+            </article>
 
-
-            <h3>Auditori</h3>
-
-            <p>
-                Gaya belajar auditori berkaitan dengan
-                kecenderungan memahami informasi melalui
-                pendengaran, penjelasan verbal, diskusi,
-                dan komunikasi lisan.
-            </p>
-
-
-            <h3>Kinestetik</h3>
-
-            <p>
-                Gaya belajar kinestetik berkaitan dengan
-                kecenderungan memahami informasi melalui
-                aktivitas, praktik, pengalaman langsung,
-                dan keterlibatan fisik.
-            </p>
-
+            <article class="vak-item">
+                <h3 data-no="03">Kinestetik</h3>
+                <p>
+                    Gaya belajar kinestetik berkaitan dengan kecenderungan memahami
+                    informasi melalui aktivitas, praktik, pengalaman langsung, dan
+                    keterlibatan fisik.
+                </p>
+            </article>
         </section>
 
-
-        <!-- K-MEANS -->
-
         <section>
-
             <h2>K-Means</h2>
-
             <p>
-                K-Means merupakan metode clustering yang
-                mengelompokkan data ke dalam sejumlah cluster
-                berdasarkan kemiripan karakteristik data.
+                K-Means merupakan metode clustering yang mengelompokkan data ke
+                dalam sejumlah cluster berdasarkan kemiripan karakteristik data.
             </p>
-
             <p>
-                Pada penelitian ini, K-Means digunakan untuk
-                mengelompokkan siswa berdasarkan karakteristik
-                skor Visual, Auditori, dan Kinestetik.
+                Pada penelitian ini, K-Means digunakan untuk mengelompokkan siswa
+                berdasarkan karakteristik skor Visual, Auditori, dan Kinestetik.
             </p>
-
         </section>
 
-
-        <!-- FCM -->
-
         <section>
-
             <h2>Fuzzy C-Means</h2>
-
             <p>
-                Fuzzy C-Means (FCM) merupakan metode clustering
-                berbasis fuzzy yang memungkinkan suatu data
-                memiliki derajat keanggotaan pada beberapa
+                Fuzzy C-Means (FCM) merupakan metode clustering berbasis fuzzy yang
+                memungkinkan suatu data memiliki derajat keanggotaan pada beberapa
                 cluster.
             </p>
-
             <p>
-                Derajat keanggotaan tersebut menunjukkan
-                tingkat kedekatan atau kecenderungan suatu
-                data terhadap masing-masing cluster.
+                Derajat keanggotaan tersebut menunjukkan tingkat kedekatan atau
+                kecenderungan suatu data terhadap masing-masing cluster.
             </p>
-
         </section>
 
-
-        <!-- ALUR PENELITIAN -->
-
         <section>
-
             <h2>Alur Kerja Penelitian</h2>
-
             <ol>
-
-                <li>
-                    Pengumpulan data siswa
-                </li>
-
-                <li>
-                    Preprocessing data
-                </li>
-
-                <li>
-                    Perhitungan skor Visual, Auditori,
-                    dan Kinestetik
-                </li>
-
-                <li>
-                    Pengelompokan data menggunakan K-Means
-                </li>
-
-                <li>
-                    Pengelompokan data menggunakan
-                    Fuzzy C-Means
-                </li>
-
-                <li>
-                    Analisis hasil clustering
-                </li>
-
-                <li>
-                    Penentuan kecenderungan gaya belajar
-                </li>
-
-                <li>
-                    Pemberian rekomendasi jurusan
-                </li>
-
+                <li>Pengumpulan data siswa</li>
+                <li>Preprocessing data</li>
+                <li>Perhitungan skor Visual, Auditori, dan Kinestetik</li>
+                <li>Pengelompokan data menggunakan K-Means</li>
+                <li>Pengelompokan data menggunakan Fuzzy C-Means</li>
+                <li>Analisis hasil clustering</li>
+                <li>Penentuan kecenderungan gaya belajar</li>
+                <li>Pemberian rekomendasi jurusan</li>
             </ol>
-
         </section>
-
-
-        <!-- AKSES SISTEM -->
 
         <section>
-
             <h2>Akses Sistem</h2>
-
             <p>
-                Sistem dapat digunakan oleh guru maupun siswa
-                melalui halaman login.
+                Sistem dapat digunakan oleh guru maupun siswa melalui halaman login.
             </p>
-
-            <a href="{{ url_for('login') }}">
-                <button type="button">
-                    Masuk ke Sistem
-                </button>
-            </a>
-
+            <a href="{{ url_for('login') }}" class="btn-primary">Masuk ke Sistem</a>
         </section>
-
     </main>
 
-
-    <!-- ==============================
-         FOOTER
-    =============================== -->
-
     <footer>
-
         <hr>
-
-        <p>
-            Sistem Analisis Gaya Belajar VAK
-        </p>
-
-        <p>
-            K-Means &amp; Fuzzy C-Means
-        </p>
-
+        <p>Sistem Analisis Gaya Belajar VAK</p>
+        <p>K-Means &amp; Fuzzy C-Means</p>
     </footer>
-
 </body>
 
 </html>

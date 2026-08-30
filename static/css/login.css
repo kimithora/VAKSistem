@@ -1,259 +1,912 @@
-/* ============================================
-   LOGIN.CSS — Halaman Login VAK
-   Gen Z Edition | Interactive | Pure CSS
-   ============================================ */
+/* ==========================================================================
+   LOGIN.CSS — Subtle Cyber Academic Theme
 
-/* ── Background Image Handling ── */
+   External Resources:
+   - Google Fonts: Plus Jakarta Sans (400, 500, 600, 700, 800)
+   - Google Fonts: JetBrains Mono (400, 500)
+
+   Design Direction: Futuristic Research Interface × Gen Z × Minimal Cyber
+   Theme: Secure System Access / Authentication Terminal
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. GOOGLE FONTS IMPORT
+   -------------------------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* --------------------------------------------------------------------------
+   2. CSS VARIABLES — Color Palette & Design Tokens
+   -------------------------------------------------------------------------- */
+:root {
+    /* Base Colors */
+    --bg: #080a0f;
+    --surface: #0d1118;
+    --surface-soft: #10151d;
+    --surface-hover: #131924;
+
+    /* Text Colors */
+    --text: #f2f5f7;
+    --text-secondary: #a4adb8;
+    --text-muted: #697481;
+
+    /* Accent — Electric Cyan */
+    --accent: #62d9ff;
+    --accent-soft: rgba(98, 217, 255, 0.08);
+    --accent-border: rgba(98, 217, 255, 0.22);
+    --accent-glow: rgba(98, 217, 255, 0.12);
+    --accent-glow-strong: rgba(98, 217, 255, 0.18);
+
+    /* Alert / Error — Soft Coral */
+    --error: #ff8a8a;
+    --error-soft: rgba(255, 138, 138, 0.08);
+    --error-border: rgba(255, 138, 138, 0.18);
+
+    /* Borders */
+    --border: rgba(255, 255, 255, 0.09);
+    --border-subtle: rgba(255, 255, 255, 0.06);
+    --border-accent: rgba(98, 217, 255, 0.2);
+
+    /* Typography */
+    --font-primary: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'SF Mono', monospace;
+
+    /* Spacing */
+    --content-max: 1180px;
+    --form-max: 480px;
+
+    /* Transitions */
+    --transition-fast: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Radii */
+    --radius-sm: 8px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   3. RESET & BASE
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    background-color: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --------------------------------------------------------------------------
+   4. ATMOSPHERIC BACKGROUND
+   -------------------------------------------------------------------------- */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+    background:
+        radial-gradient(
+            circle at 50% 30%,
+            rgba(98, 217, 255, 0.05),
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 80% 80%,
+            rgba(98, 217, 255, 0.03),
+            transparent 40%
+        );
+    pointer-events: none;
+}
+
+/* Technical Grid */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image:
+        linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        );
+    background-size: 60px 60px;
+    pointer-events: none;
+    mask-image: radial-gradient(
+        ellipse at center,
+        black 30%,
+        transparent 75%
+    );
+    -webkit-mask-image: radial-gradient(
+        ellipse at center,
+        black 30%,
+        transparent 75%
+    );
+}
+
+/* Subtle Vignette */
+html::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(
+        ellipse at center,
+        transparent 50%,
+        rgba(0, 0, 0, 0.5) 100%
+    );
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   5. LOGIN BACKGROUND IMAGE
+   -------------------------------------------------------------------------- */
 .login-background {
-  position: fixed;
-  inset: 0;
-  z-index: -3;
-  overflow: hidden;
+    position: fixed;
+    inset: 0;
+    z-index: -4;
+    overflow: hidden;
 }
 
 .login-background img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.15;
-  filter: blur(2px) saturate(1.5);
-  transform: scale(1.1);
-  animation: slow-zoom 20s ease-in-out infinite alternate;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.35;
+    filter: saturate(0.6) contrast(1.1);
 }
 
-@keyframes slow-zoom {
-  from { transform: scale(1.1); }
-  to { transform: scale(1.2); }
+/* Dark overlay on background image */
+.login-background::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(8, 10, 15, 0.92) 0%,
+        rgba(8, 10, 15, 0.75) 40%,
+        rgba(8, 10, 15, 0.88) 70%,
+        rgba(8, 10, 15, 0.98) 100%
+    );
 }
 
-/* ── Login Layout ── */
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+/* --------------------------------------------------------------------------
+   6. SELECTION & SCROLLBAR
+   -------------------------------------------------------------------------- */
+::selection {
+    background: var(--accent-soft);
+    color: var(--text);
 }
 
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(98, 217, 255, 0.25);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(98, 217, 255, 0.4);
+}
+
+/* --------------------------------------------------------------------------
+   7. HEADER
+   -------------------------------------------------------------------------- */
+header {
+    position: relative;
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: clamp(2.5rem, 6vw, 4rem) clamp(1.25rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2rem);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+}
+
+/* Technical Label: // AUTHENTICATION */
+header::before {
+    content: '// AUTHENTICATION';
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.4;
+    order: -1;
+    margin-bottom: 0.25rem;
+}
+
+/* Tiny decorative dot */
+header::after {
+    content: '';
+    position: absolute;
+    top: clamp(2.5rem, 6vw, 4rem);
+    right: clamp(1.25rem, 4vw, 3rem);
+    width: 3px;
+    height: 3px;
+    background: var(--accent);
+    opacity: 0.25;
+    border-radius: 50%;
+}
+
+/* --------------------------------------------------------------------------
+   8. HEADER H1
+   -------------------------------------------------------------------------- */
+header h1 {
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    color: var(--text);
+    position: relative;
+}
+
+/* Small cyan line marker */
+header h1::before {
+    content: '';
+    position: absolute;
+    left: -16px;
+    top: 0.4em;
+    width: 2px;
+    height: 0.5em;
+    background: var(--accent);
+    opacity: 0.4;
+    border-radius: 1px;
+}
+
+/* Tiny plus marker */
+header h1::after {
+    content: '+';
+    font-family: var(--font-mono);
+    font-size: 0.45em;
+    font-weight: 400;
+    color: var(--accent);
+    opacity: 0.2;
+    margin-left: 0.4em;
+    vertical-align: super;
+}
+
+/* --------------------------------------------------------------------------
+   9. HEADER PARAGRAPH
+   -------------------------------------------------------------------------- */
+header > p {
+    font-size: clamp(0.9rem, 1.3vw, 1.1rem);
+    font-weight: 400;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    opacity: 0.8;
+    max-width: 400px;
+}
+
+/* --------------------------------------------------------------------------
+   10. NAVIGATION
+   -------------------------------------------------------------------------- */
+header nav {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 0.25rem;
+}
+
+header nav a {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.55rem 1.1rem;
+    font-family: var(--font-primary);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    color: var(--text-muted);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: transparent;
+    transition: 
+        color var(--transition-fast),
+        background var(--transition-fast),
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast);
+}
+
+header nav a:hover {
+    color: var(--accent);
+    border-color: var(--accent-border);
+    background: var(--accent-soft);
+    box-shadow: 0 0 20px var(--accent-glow);
+}
+
+header nav a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-md);
+}
+
+/* --------------------------------------------------------------------------
+   11. HEADER HR — Technical Divider
+   -------------------------------------------------------------------------- */
+header hr {
+    border: none;
+    height: 1px;
+    width: 100%;
+    max-width: 200px;
+    margin-top: 0.5rem;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--border) 30%,
+        var(--border) 70%,
+        transparent 100%
+    );
+    position: relative;
+}
+
+/* Tiny accent point at center */
+header hr::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 3px;
+    height: 3px;
+    background: var(--accent);
+    opacity: 0.3;
+    border-radius: 50%;
+}
+
+/* --------------------------------------------------------------------------
+   12. MAIN LAYOUT
+   -------------------------------------------------------------------------- */
 main {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-md);
-  perspective: 1000px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: clamp(1rem, 3vw, 2rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 6vw, 5rem);
+    width: 100%;
 }
 
-/* ── Login Card ── */
+/* --------------------------------------------------------------------------
+   13. SECTION — Access Panel
+   -------------------------------------------------------------------------- */
 section {
-  width: 100%;
-  max-width: 440px;
-  padding: var(--space-lg);
-  border-radius: var(--radius-lg);
-  background: var(--bg-glass);
-  backdrop-filter: blur(24px) saturate(180%);
-  -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border: 1px solid var(--border-glass);
-  box-shadow: var(--shadow-card), 0 0 60px rgba(184, 41, 221, 0.1);
-  animation: slide-up 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s both,
-             border-glow 4s ease infinite;
-  position: relative;
-  overflow: hidden;
+    position: relative;
+    width: 100%;
+    max-width: var(--form-max);
+    background: var(--surface);
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius-lg);
+    padding: clamp(2rem, 5vw, 3rem);
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.35),
+        0 0 50px var(--accent-glow);
+    overflow: hidden;
 }
 
-/* Decorative corner accents */
-section::before,
-section::after {
-  content: '';
-  position: absolute;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  filter: blur(40px);
-  opacity: 0.4;
-  pointer-events: none;
-}
-
+/* Decorative corner — top left cyan line */
 section::before {
-  top: -20px;
-  right: -20px;
-  background: var(--accent-purple);
-  animation: float 6s ease-in-out infinite;
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 36px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.5;
 }
 
 section::after {
-  bottom: -20px;
-  left: -20px;
-  background: var(--accent-cyan);
-  animation: float 7s ease-in-out infinite reverse;
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 1px;
+    height: 36px;
+    background: var(--accent);
+    opacity: 0.5;
 }
 
-/* ── Section Header ── */
+/* Bottom right corner decoration */
+section > *:last-child::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    right: -1px;
+    width: 20px;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.25;
+}
+
+/* Technical label on section */
+section h2::before {
+    content: 'AUTH / REQUIRED';
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.4;
+    margin-bottom: 0.75rem;
+    line-height: 1;
+}
+
+/* --------------------------------------------------------------------------
+   14. SECTION HEADING (H2)
+   -------------------------------------------------------------------------- */
 section h2 {
-  text-align: center;
-  margin-bottom: var(--space-xs);
-  position: relative;
-  z-index: 1;
+    font-size: clamp(1.35rem, 3vw, 1.75rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    text-align: center;
 }
 
+/* Accent marker line */
 section h2::after {
-  content: '🔐';
-  display: block;
-  font-size: 2.5rem;
-  margin: var(--space-sm) 0;
-  filter: drop-shadow(0 0 10px rgba(0, 245, 255, 0.5));
-  animation: float 3s ease-in-out infinite;
+    content: '';
+    display: block;
+    width: 32px;
+    height: 2px;
+    background: var(--accent);
+    opacity: 0.3;
+    margin: 0.75rem auto 0;
+    border-radius: 1px;
 }
 
+/* --------------------------------------------------------------------------
+   15. PARAGRAPH
+   -------------------------------------------------------------------------- */
 section > p {
-  text-align: center;
-  margin: 0 auto var(--space-md);
-  font-size: 0.9375rem;
-  position: relative;
-  z-index: 1;
+    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    line-height: 1.7;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    max-width: 360px;
+    margin-inline: auto;
 }
 
-/* ── Error Message in Login ── */
-section .error-message,
-section p strong {
-  display: block;
-  padding: var(--space-sm);
-  margin-bottom: var(--space-md);
-  background: rgba(255, 42, 109, 0.08);
-  border: 1px solid rgba(255, 42, 109, 0.25);
-  border-radius: var(--radius-md);
-  color: #ff6b9d;
-  font-size: 0.875rem;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-  animation: slide-up 0.4s ease, pulse-glow 2.5s ease infinite;
+/* --------------------------------------------------------------------------
+   16. ERROR MESSAGE
+   -------------------------------------------------------------------------- */
+/* Target the error paragraph (contains only <strong>) */
+section > p:has(> strong:only-child) {
+    background: var(--error-soft);
+    border: 1px solid var(--error-border);
+    border-radius: var(--radius-md);
+    padding: 0.875rem 1.25rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    position: relative;
 }
 
-/* ── Form Styling ── */
+/* Error icon/indicator */
+section > p:has(> strong:only-child)::before {
+    content: '!';
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--error);
+    opacity: 0.7;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--error-border);
+    border-radius: 50%;
+}
+
+section > p strong {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--error);
+    padding-left: 2rem;
+    line-height: 1.5;
+}
+
+/* Fallback for browsers without :has() */
+@supports not selector(:has(*)) {
+    section > p:nth-of-type(2) {
+        background: var(--error-soft);
+        border: 1px solid var(--error-border);
+        border-radius: var(--radius-md);
+        padding: 0.875rem 1.25rem;
+        margin-bottom: 1.5rem;
+        text-align: left;
+    }
+
+    section > p:nth-of-type(2) strong {
+        display: block;
+        font-family: var(--font-mono);
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--error);
+        line-height: 1.5;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   17. FORM
+   -------------------------------------------------------------------------- */
 form {
-  position: relative;
-  z-index: 1;
+    margin-top: 0.5rem;
 }
 
+/* Remove <br> tags for cleaner layout */
+form br {
+    display: none;
+}
+
+/* --------------------------------------------------------------------------
+   18. INPUT GROUP
+   -------------------------------------------------------------------------- */
 form div {
-  margin-bottom: var(--space-sm);
+    position: relative;
 }
 
-/* Token Input with Icon vibe */
-input#token {
-  padding-left: 3rem;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2300f5ff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'%3E%3C/path%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 1rem center;
-  background-size: 20px;
-  letter-spacing: 0.05em;
-  font-family: var(--font-mono);
+/* --------------------------------------------------------------------------
+   19. LABEL
+   -------------------------------------------------------------------------- */
+form label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.625rem;
+    transition: color var(--transition-fast);
 }
 
-input#token:focus {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23ff2a6d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='11' width='18' height='11' rx='2' ry='2'%3E%3C/rect%3E%3Cpath d='M7 11V7a5 5 0 0 1 10 0v4'%3E%3C/path%3E%3C/svg%3E");
+/* Label focus state via input focus */
+form div:focus-within label {
+    color: var(--accent);
+    opacity: 0.8;
 }
 
-/* ── Submit Button ── */
+/* --------------------------------------------------------------------------
+   20. INPUT FIELD
+   -------------------------------------------------------------------------- */
+input[type="text"] {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    outline: none;
+    transition: 
+        border-color var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast);
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+input[type="text"]::placeholder {
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0;
+    color: var(--text-muted);
+    opacity: 0.5;
+}
+
+input[type="text"]:hover {
+    border-color: rgba(255, 255, 255, 0.14);
+}
+
+input[type="text"]:focus {
+    border-color: var(--accent-border);
+    background: var(--surface);
+    box-shadow: 
+        0 0 0 3px var(--accent-glow),
+        0 0 25px var(--accent-glow);
+}
+
+/* Autofill styling for dark theme */
+input[type="text"]:-webkit-autofill,
+input[type="text"]:-webkit-autofill:hover,
+input[type="text"]:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--text);
+    -webkit-box-shadow: 0 0 0px 1000px var(--surface-soft) inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+/* --------------------------------------------------------------------------
+   21. SUBMIT BUTTON
+   -------------------------------------------------------------------------- */
 form button[type="submit"] {
-  width: 100%;
-  margin-top: var(--space-sm);
-  padding: 1rem;
-  font-size: 1.05rem;
-  letter-spacing: 0.02em;
-  position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 0.95rem 1.5rem;
+    font-family: var(--font-primary);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--bg);
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    outline: none;
+    transition: 
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        background var(--transition-fast),
+        color var(--transition-fast);
+    position: relative;
+    overflow: hidden;
 }
 
-/* Arrow icon on button */
+/* Arrow pseudo-element */
 form button[type="submit"]::after {
-  content: '→';
-  margin-left: 0.5rem;
-  transition: transform var(--transition-base);
+    content: '\2192';
+    font-size: 1.15em;
+    line-height: 1;
+    transition: transform var(--transition-fast);
+}
+
+form button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 10px 35px rgba(98, 217, 255, 0.15),
+        0 0 25px var(--accent-glow-strong);
 }
 
 form button[type="submit"]:hover::after {
-  transform: translateX(4px);
+    transform: translateX(4px);
 }
 
-/* ── Floating Particles (CSS Only) ── */
-main::before {
-  content: '';
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  background: var(--accent-cyan);
-  border-radius: 50%;
-  top: 20%;
-  left: 10%;
-  box-shadow: 
-    20px 40px 0 var(--accent-purple),
-    60px -20px 0 var(--accent-pink),
-    -30px 60px 0 var(--accent-lime),
-    80px 80px 0 var(--accent-orange),
-    -50px -30px 0 var(--accent-cyan);
-  animation: particles-float 8s ease-in-out infinite;
-  opacity: 0.6;
-  pointer-events: none;
+form button[type="submit"]:active {
+    transform: translateY(0);
 }
 
-@keyframes particles-float {
-  0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(10px, -15px); }
-  50% { transform: translate(-5px, 10px); }
-  75% { transform: translate(15px, 5px); }
+form button[type="submit"]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
 }
 
-/* ── VAK Badge (Visual Auditory Kinesthetic) ── */
-section::before {
-  content: 'V • A • K';
-  position: absolute;
-  top: var(--space-sm);
-  right: var(--space-sm);
-  font-size: 0.65rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  color: var(--text-muted);
-  background: rgba(255,255,255,0.03);
-  padding: 0.25rem 0.75rem;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--border-glass);
-  z-index: 2;
+/* --------------------------------------------------------------------------
+   22. FOOTER
+   -------------------------------------------------------------------------- */
+footer {
+    max-width: var(--content-max);
+    margin-inline: auto;
+    padding: clamp(1.5rem, 3vw, 2rem) clamp(1.25rem, 4vw, 3rem);
+    text-align: center;
+    position: relative;
 }
 
-/* Override the previous ::before for decorative orb */
-section {
-  position: relative;
+/* Technical divider */
+footer hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--border) 20%,
+        var(--border) 80%,
+        transparent 100%
+    );
+    margin-bottom: 1.25rem;
 }
 
-/* We need to adjust since ::before is used for badge. 
-   Let's use extra decorative elements via form positioning instead. */
-
-/* ── Responsive Login ── */
-@media (max-width: 480px) {
-  section {
-    padding: var(--space-md);
-    border-radius: var(--radius-md);
-    margin: var(--space-sm);
-  }
-
-  section h2::after {
-    font-size: 2rem;
-  }
-
-  input#token {
-    padding-left: 2.5rem;
-    background-position: 0.75rem center;
-  }
+footer p {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0.5;
+    line-height: 1.6;
 }
 
-/* ── Reduced Motion ── */
+/* Technical detail */
+footer::after {
+    content: '// SECURE CONNECTION';
+    display: block;
+    margin-top: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0.15;
+}
+
+/* --------------------------------------------------------------------------
+   23. ADDITIONAL TECHNICAL DECORATIONS
+   -------------------------------------------------------------------------- */
+/* Tiny lock icon feel near input — decorative line */
+form div::before {
+    content: '';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid var(--border);
+    border-radius: 2px;
+    opacity: 0.5;
+    pointer-events: none;
+    transition: border-color var(--transition-fast);
+}
+
+form div:focus-within::before {
+    border-color: var(--accent);
+    opacity: 0.3;
+}
+
+/* --------------------------------------------------------------------------
+   24. RESPONSIVE — Tablet (768px - 1023px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1023px) {
+    header h1::before {
+        left: -12px;
+    }
+
+    section {
+        padding: clamp(1.75rem, 4vw, 2.5rem);
+    }
+}
+
+/* --------------------------------------------------------------------------
+   25. RESPONSIVE — Mobile (< 768px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 767px) {
+    header {
+        padding-top: 2rem;
+    }
+
+    header h1 {
+        font-size: clamp(1.6rem, 10vw, 2.2rem);
+    }
+
+    header h1::before {
+        display: none;
+    }
+
+    header > p {
+        font-size: 0.9rem;
+    }
+
+    section {
+        padding: 1.75rem;
+        border-radius: var(--radius-md);
+    }
+
+    section h2 {
+        font-size: 1.3rem;
+    }
+
+    section > p {
+        font-size: 0.9rem;
+    }
+
+    input[type="text"] {
+        padding: 0.875rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    form button[type="submit"] {
+        padding: 0.875rem 1.25rem;
+    }
+
+    footer {
+        padding: 1.5rem 1.25rem;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   26. ACCESSIBILITY — Reduced Motion
+   -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 
-  .login-background img {
-    animation: none;
-  }
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   27. ACCESSIBILITY — Focus Visible
+   -------------------------------------------------------------------------- */
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+a:focus-visible {
+    border-radius: var(--radius-sm);
+}
+
+/* --------------------------------------------------------------------------
+   28. PRINT STYLES
+   -------------------------------------------------------------------------- */
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .login-background,
+    body::before,
+    body::after,
+    html::after {
+        display: none !important;
+    }
+
+    section {
+        border: 1px solid #ccc;
+        box-shadow: none;
+    }
+
+    input[type="text"] {
+        border: 1px solid #999;
+    }
 }
