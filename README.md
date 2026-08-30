@@ -1,143 +1,158 @@
-# README Penggunaan Aplikasi Analisis Gaya Belajar
+# VAK Sistem
 
-Aplikasi ini dibuat menggunakan Flask untuk menganalisis gaya belajar peserta berdasarkan data siswa pada file CSV. Aplikasi menampilkan hasil pencarian berdasarkan inisial, detail profil peserta, serta hasil analisis gaya belajar menggunakan metode K-Means dan Fuzzy C-Means.
+Sistem Analisis Gaya Belajar VAK berbasis web yang dibangun dengan Flask untuk membantu identifikasi gaya belajar siswa berdasarkan pendekatan Visual, Auditori, dan Kinestetik (VAK). Aplikasi ini memadukan data siswa, analisis clustering K-Means dan Fuzzy C-Means, serta rekomendasi jurusan yang disesuaikan dengan karakteristik belajar peserta didik.
 
-## Fitur utama
+<p align="center">
+  <img src="https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python 3.11+" />
+  <img src="https://img.shields.io/badge/Flask-3.0-000000?style=for-the-badge&logo=flask&logoColor=white" alt="Flask" />
+  <img src="https://img.shields.io/badge/Frontend-HTML%2FCSS%2FJS-FF6B6B?style=for-the-badge" alt="Frontend" />
+  <img src="https://img.shields.io/badge/Data-CSV%20%2B%20JSON-4ECDC4?style=for-the-badge" alt="Data" />
+</p>
 
-- Pencarian data peserta berdasarkan inisial
-- Menampilkan profil siswa lengkap
-- Melihat skor gaya belajar Visual, Auditori, dan Kinestetik
-- Menampilkan hasil analisis K-Means
-- Menampilkan hasil analisis Fuzzy C-Means
-- Menampilkan rekomendasi jurusan sesuai gaya belajar dominan
-- Antarmuka web sederhana dan responsif
+## Ringkasan Proyek
 
-## Teknologi yang digunakan
+Proyek ini dirancang untuk membantu pengelolaan dan analisis data siswa secara cepat dan terstruktur. Fitur utama yang tersedia meliputi:
 
-- Python
+- autentikasi berbasis token untuk role guru dan siswa
+- dashboard guru dengan statistik dan daftar siswa
+- pencarian data siswa berdasarkan inisial
+- analisis gaya belajar Visual, Auditori, dan Kinestetik
+- hasil clustering K-Means dan Fuzzy C-Means
+- proporsi dan membership cluster
+- rekomendasi jurusan sesuai gaya belajar dominan
+- antarmuka web yang modern dan profesional
+
+## Fitur Utama
+
+- Login dengan token
+- Role-based access: guru dan siswa
+- Dashboard guru
+- Hasil analisis personal siswa
+- Visualisasi proporsi gaya belajar
+- Hasil K-Means dan FCM
+- Rekomendasi jurusan
+- UI yang responsif dan siap untuk deployment
+
+## Teknologi yang Digunakan
+
+- Python 3.11+
 - Flask
 - Pandas
-- HTML + CSS
-- CSV sebagai database lokal
+- Jinja2 Templates
+- HTML5
+- CSS3
+- JavaScript
+- Data CSV dan JSON
 
-## Struktur folder
+## Struktur Proyek
 
 ```bash
 WEB/
 ├── app.py
-├── SMA1_DATABASE.csv
 ├── README.md
+├── requirement.txt
+├── data/
+│   ├── SMA1_DATABASE.CSV
+│   └── token.json
+├── js/
+│   └── login.js
 ├── static/
-│   └── css/
-├── templates/
-│   ├── index.html
-│   ├── hasil.html
-│   ├── rekomendasi_visual.html
-│   ├── rekomendasi_auditori.html
-│   └── rekomendasi_kinestetik.html
-└── venv/   (opsional jika Anda membuat environment virtual)
+│   ├── assets/
+│   ├── css/
+│   └── js/
+├── template/
+│   ├── login.html
+│   ├── tentang.html
+│   ├── guru/
+│   │   ├── dashboard.html
+│   │   └── hasil_siswa.html
+│   ├── rekomendasi/
+│   │   ├── rekomendasi_visual.html
+│   │   ├── rekomendasi_auditori.html
+│   │   └── rekomendasi_kinestetik.html
+│   └── siswa/
+│       └── hasil.html
+├── utils/
+│   ├── auth.py
+│   ├── data.py
+│   └── rekomendasi.py
+└── .venv/
 ```
 
-## Persyaratan
+## Persyaratan Sistem
 
-Pastikan perangkat Anda sudah memiliki:
-
-- Python 3.9 atau versi lebih baru
+- Python 3.11 atau lebih tinggi
 - pip
-- Akses ke file CSV data siswa
+- browser modern
+- Git
 
-## Langkah instalasi
+## Instalasi
 
-1. Buka terminal atau Command Prompt.
-2. Masuk ke folder project:
-
-```bash
-cd c:\projek\penelitian2\Kodinga\WEB
-```
-
-3. Buat virtual environment (opsional tapi disarankan):
+### 1. Clone repository
 
 ```bash
-python -m venv venv
+git clone https://github.com/kimithora/VAKSistem.git
+cd VAKSistem
 ```
 
-4. Aktifkan virtual environment:
+### 2. Buat environment virtual
 
 Windows PowerShell:
 
 ```bash
-venv\Scripts\Activate.ps1
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 ```
 
 Windows CMD:
 
 ```bash
-venv\Scripts\activate.bat
+python -m venv .venv
+.venv\Scripts\activate.bat
 ```
 
-5. Install dependency:
+### 3. Install dependency
+
+```bash
+pip install -r requirement.txt
+```
+
+Jika file `requirement.txt` belum lengkap, Anda bisa install manual:
 
 ```bash
 pip install flask pandas
 ```
 
-## Menjalankan aplikasi
-
-Jalankan perintah berikut di folder project:
+## Menjalankan Aplikasi
 
 ```bash
 python app.py
 ```
 
-Setelah server berjalan, buka browser dan akses:
+Buka browser dan akses:
 
 ```bash
 http://127.0.0.1:5000/
 ```
 
-## Cara penggunaan aplikasi
+## Struktur Login dan Role
 
-### 1. Halaman utama
+System login dibagi berdasarkan role user:
 
-Pada halaman utama, Anda akan melihat form pencarian.
+- Guru: dapat mengakses dashboard dan melihat hasil analisis siswa
+- Siswa: dapat melihat hasil gaya belajar dan rekomendasi jurusan
 
-- Masukkan inisial siswa yang ingin dicari.
-- Contoh: `KTR`, `ABC`, `RZ`.
-- Klik tombol Cari.
+Token diolah melalui file `data/token.json` dan modul autentikasi pada `utils/auth.py`.
 
-### 2. Hasil pencarian
+## Data yang Digunakan
 
-Aplikasi akan menampilkan daftar siswa yang sesuai dengan inisial yang dimasukkan. Setiap data akan memiliki link untuk melihat hasil analisis lebih detail.
-
-### 3. Detail hasil analisis
-
-Saat mengklik salah satu hasil pencarian, aplikasi akan membuka halaman detail peserta yang berisi:
-
-- identitas peserta
-- sekolah, kelas, rombel, jurusan
-- skor Visual, Auditori, Kinestetik
-- hasil analisis K-Means
-- hasil analisis Fuzzy C-Means
-- proporsi/derajat keanggotaan
-- rekomendasi jurusan sesuai gaya belajar dominan
-
-### 4. Rekomendasi jurusan
-
-Berdasarkan gaya belajar dominan, aplikasi akan mengarahkan ke halaman rekomendasi, misalnya:
-
-- /rekomendasi/visual
-- /rekomendasi/auditori
-- /rekomendasi/kinestetik
-
-## Database
-
-Aplikasi membaca data dari file:
+Aplikasi membaca data siswa dari file:
 
 ```bash
-SMA1_DATABASE.csv
+data/SMA1_DATABASE.CSV
 ```
 
-File CSV harus memiliki kolom berikut:
+Data yang diproses mencakup informasi seperti:
 
 - Inisial
 - Kelas
@@ -159,49 +174,130 @@ File CSV harus memiliki kolom berikut:
 - FCM_Gaya_Belajar
 - FCM_Derajat_Keanggotaan
 
-Jika kolom-kolom tersebut tidak lengkap, aplikasi akan memberi peringatan dan tidak dapat memproses data.
+## Cara Kerja Sistem
 
-## Endpoint utama
+### 1. Input data siswa
+Data siswa diperoleh dari file CSV.
 
-Berikut beberapa route yang tersedia pada aplikasi:
+### 2. Analisis VAK
+Sistem menghitung skor dan proporsi untuk masing-masing gaya belajar:
 
-- `/` : halaman utama
-- `/search` : pencarian data siswa
-- `/hasil/<inisial>` : halaman detail profil siswa
-- `/rekomendasi/visual` : halaman rekomendasi visual
-- `/rekomendasi/auditori` : halaman rekomendasi auditori
-- `/rekomendasi/kinestetik` : halaman rekomendasi kinestetik
+- Visual
+- Auditori
+- Kinestetik
 
-## Catatan penting
+### 3. Clustering
+Aplikasi melakukan analisis lebih lanjut dengan:
 
-- Pastikan file `SMA1_DATABASE.csv` berada di folder project yang sama dengan `app.py`.
-- Jika Anda ingin mengganti data, cukup edit file CSV sesuai struktur kolom yang sudah ditentukan.
-- Pada mode pengembangan, aplikasi dijalankan dengan `debug=True`, sehingga perubahan file akan otomatis ter-refresh di browser saat server berjalan.
+- K-Means
+- Fuzzy C-Means
 
-## Troubleshooting
+### 4. Hasil dan Rekomendasi
+Sistem menampilkan hasil dengan format yang mudah dibaca serta merekomendasikan jurusan berdasarkan gaya belajar dominan.
 
-### Masalah: `File database tidak ditemukan`
+## Halaman Aplikasi
 
-Periksa apakah file `SMA1_DATABASE.csv` ada di folder project dan nama file benar.
+### Halaman Login
+Halaman untuk masuk ke sistem menggunakan token.
 
-### Masalah: `Kolom berikut tidak ditemukan`
+### Dashboard Guru
+Guru dapat melihat:
 
-Periksa kembali struktur kolom CSV. Pastikan nama kolom sesuai persis dengan yang dibutuhkan aplikasi.
+- daftar siswa
+- statistik data
+- hasil analisis per siswa
+- rekomendasi yang sesuai
 
-### Masalah: `Tidak ditemukan peserta dengan inisial ...`
+### Halaman Hasil Siswa
+Menampilkan:
 
-Cek apakah inisial yang Anda cari ada dalam data dan apakah format penulisan benar.
+- identitas siswa
+- skor VAK
+- hasil K-Means
+- hasil FCM
+- rekomendasi jurusan
+
+## Deployment
+
+### Local Development
+
+```bash
+python app.py
+```
+
+### Vercel Deployment
+
+Proyek ini juga siap untuk deployment ke Vercel. Untuk kebutuhan deployment, pastikan konfigurasi aplikasi dan environment variable sudah sesuai, termasuk pengaturan `SECRET_KEY` bila diperlukan.
+
+## Environment Variables
+
+```bash
+SECRET_KEY=your-secret-key
+VERCEL=1
+```
+
+## Changelog
+
+### v1.1.3: Persiapan rilis berikutnya
+- Penyempurnaan dokumentasi project
+- Penataan README agar lebih profesional dan rapi
+- Persiapan versi publik repository
+- Penyesuaian catatan perubahan aplikasi
+
+### v1.1.2: Vercel deployment
+- Deployment aplikasi ke Vercel
+- Penyempurnaan konfigurasi runtime
+- Penyesuaian untuk lingkungan hosting
+
+### v1.1.1: Penyempurnaan sedikit
+- Perbaikan antarmuka
+- Optimasi flow login dan token
+- Penyempurnaan pengalaman pengguna
+
+### v1.1.0: Siap launching
+- Persiapan launch aplikasi
+- Stabilisasi fitur utama
+- Penyempurnaan desain dan navigasi
+
+### Menentukan 2 theme: elegant dan klasik atau colorful dan cyber
+- Evaluasi desain visual yang cocok untuk interface aplikasi
+- Pemilihan arah tema modern dan profesional
+
+### v0.1.0: Pembuatan sistem awal
+- Inisialisasi proyek
+- Pembuatan struktur dasar sistem
+- Implementasi analisis awal gaya belajar
+
+## Roadmap
+
+- integrasi database relasional
+- pengembangan API backend
+- export data ke PDF/Excel
+- dashboard analitik lebih modern
+- logging aktivitas user
+- optimasi UX dan UI
+
+## Kontribusi
+
+Kontribusi sangat terbuka untuk pengembangan lebih lanjut. Anda bisa melakukan:
+
+1. fork repository
+2. buat branch baru
+3. commit perubahan
+4. buka pull request
+
+## Lisensi
+
+Proyek ini dibuat untuk kebutuhan penelitian dan pengembangan aplikasi analisis gaya belajar. Silakan sesuaikan lisensi sesuai kebutuhan institusi atau tim pengembang.
+
+## Kontak
+
+- GitHub: https://github.com/kimithora
+- Project: VAK Sistem
 
 ## Penutup
 
-Aplikasi ini berguna untuk memudahkan proses analisis gaya belajar siswa secara cepat dan terstruktur berbasis data. Dengan tampilan web yang sederhana, pengguna dapat mencari dan melihat hasil analisis tanpa perlu menjalankan proses data secara manual.
+VAK Sistem adalah aplikasi berbasis web yang menggabungkan analisis gaya belajar siswa dengan pendekatan data dan clustering. Aplikasi ini diharapkan menjadi alat bantu yang berguna untuk analisis pembelajaran, rekomendasi jurusan, serta kebutuhan penelitian di bidang pendidikan.
 
-## Version 
-### v0.1.0
-set up projek awal
-
-### v0.2.0
-beberapa perubahan yang harus on-going:
-1. membuat sistem autentikasi baik untuk guru bk sebagai admin dan siswa sebagai user
-2. membuat 1 bar persentase 
+> Proyek ini terus berkembang dan siap untuk melangkah ke rilis berikutnya dengan dokumentasi yang lebih rapi dan profesional.
 
