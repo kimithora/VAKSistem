@@ -1,29 +1,4 @@
-from pathlib import Path
-import pandas as pd
-
-
-# =========================================================
-# PATH PROJECT
-# =========================================================
-
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-DATABASE_PATH = BASE_DIR / "data" / "SMA1_DATABASE.CSV"
-
-
-# =========================================================
-# LOAD DATABASE
-# =========================================================
-
-def load_database():
-
-    if not DATABASE_PATH.exists():
-        raise FileNotFoundError(
-            f"Database tidak ditemukan.\n"
-            f"Lokasi yang dicari: {DATABASE_PATH}"
-        )
-
-    return pd.read_csv(DATABASE_PATH)
+from utils.db import get_db_connection
 
 
 # =========================================================
@@ -32,23 +7,24 @@ def load_database():
 
 def search_students(keyword):
 
-    df = load_database()
-
-    keyword = str(keyword).strip().lower()
+    keyword = str(keyword).strip()
 
     if not keyword:
         return []
 
-    mask = (
-        df["Inisial"]
-        .astype(str)
-        .str.lower()
-        .str.contains(keyword, na=False)
-    )
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
 
-    result = df[mask]
+    query = "SELECT * FROM siswa WHERE LOWER(Inisial) LIKE LOWER(%s)"
 
-    return result.to_dict(orient="records")
+    cursor.execute(query, (f"%{keyword}%",))
+
+    students = cursor.fetchall()
+
+    cursor.close()
+    db.close()
+
+    return students
 
 
 # =========================================================
@@ -57,21 +33,24 @@ def search_students(keyword):
 
 def get_student_by_initial(inisial):
 
-    df = load_database()
+    inisial = str(inisial).strip()
 
-    inisial = str(inisial).strip().lower()
-
-    result = df[
-        df["Inisial"]
-        .astype(str)
-        .str.lower()
-        == inisial
-    ]
-
-    if result.empty:
+    if not inisial:
         return None
 
-    return result.iloc[0].to_dict()
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
+
+    query = "SELECT * FROM siswa WHERE LOWER(Inisial) = LOWER(%s) LIMIT 1"
+
+    cursor.execute(query, (inisial,))
+
+    student = cursor.fetchone()
+
+    cursor.close()
+    db.close()
+
+    return student
 
 
 # =========================================================
@@ -80,75 +59,64 @@ def get_student_by_initial(inisial):
 
 def get_dashboard_statistics():
 
-    df = load_database()
+    db = get_db_connection()
+    cursor = db.cursor(dictionary=True)
 
-    # =====================================================
-    # TOTAL SISWA
-    # =====================================================
+    # Total siswa
+    cursor.execute("SELECT COUNT(*) AS total FROM siswa")
+    total_siswa = cursor.fetchone()["total"]
 
-    total_siswa = len(df)
+    # Total kelas
+    cursor.execute("SELECT COUNT(DISTINCT Kelas) AS total FROM siswa")
+    total_kelas = cursor.fetchone()["total"]
 
-    # =====================================================
-    # INFORMASI DATA
-    # =====================================================
+    # Total rombel
+    cursor.execute("SELECT COUNT(DISTINCT Rombel) AS total FROM siswa")
+    total_rombel = cursor.fetchone()["total"]
 
-    total_kelas = (
-        df["Kelas"].dropna().nunique()
-        if "Kelas" in df.columns
-        else 0
+    # Total sekolah
+    cursor.execute("SELECT COUNT(DISTINCT Sekolah) AS total FROM siswa")
+    total_sekolah = cursor.fetchone()["total"]
+
+    # Total jurusan
+    cursor.execute("SELECT COUNT(DISTINCT Jurusan) AS total FROM siswa")
+    total_jurusan = cursor.fetchone()["total"]
+
+    # Gaya belajar
+    cursor.execute(
+        "SELECT KMeans_Gaya_Belajar, COUNT(*) AS jumlah "
+        "FROM siswa GROUP BY KMeans_Gaya_Belajar"
     )
 
-    total_rombel = (
-        df["Rombel"].dropna().nunique()
-        if "Rombel" in df.columns
-        else 0
-    )
-
-    total_sekolah = (
-        df["Sekolah"].dropna().nunique()
-        if "Sekolah" in df.columns
-        else 0
-    )
-
-    total_jurusan = (
-        df["Jurusan"].dropna().nunique()
-        if "Jurusan" in df.columns
-        else 0
-    )
-
-    # =====================================================
-    # GAYA BELAJAR
-    # =====================================================
+    gaya_data = cursor.fetchall()
 
     visual = 0
     auditori = 0
     kinestetik = 0
 
-    if "KMeans_Gaya_Belajar" in df.columns:
+    for row in gaya_data:
 
-        gaya = (
-            df["KMeans_Gaya_Belajar"]
-            .astype(str)
-            .str.strip()
-            .str.lower()
-        )
+        gaya = str(row["KMeans_Gaya_Belajar"]).strip().lower()
+        jumlah = int(row["jumlah"])
 
-        visual = int((gaya == "visual").sum())
-        auditori = int((gaya == "auditori").sum())
-        kinestetik = int((gaya == "kinestetik").sum())
+        if gaya == "visual":
+            visual = jumlah
 
-    # =====================================================
-    # RETURN STATISTICS
-    # =====================================================
+        elif gaya == "auditori":
+            auditori = jumlah
+
+        elif gaya == "kinestetik":
+            kinestetik = jumlah
+
+    cursor.close()
+    db.close()
 
     return {
         "total_siswa": int(total_siswa),
-
         "total_kelas": int(total_kelas),
         "total_rombel": int(total_rombel),
         "total_sekolah": int(total_sekolah),
         "total_jurusan": int(total_jurusan),
-
         "visual": int(visual),
         "auditori": int(auditori),
         "kinestetik": int(kinestetik)
